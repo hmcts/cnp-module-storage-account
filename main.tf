@@ -1,5 +1,11 @@
+resource "random_string" "storageaccountname" {
+  length  = 24
+  special = false
+  upper   = false
+}
+
 resource "azurerm_storage_account" "storage_account" {
-  name                      = "${var.product}${var.env}"
+  name                      = "${random_string.storageaccountname}"
   resource_group_name       = "${var.resource_group_name}"
   location                  = "${var.location}"
   account_kind              = "${var.account_kind}"
