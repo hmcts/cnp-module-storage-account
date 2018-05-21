@@ -1,10 +1,18 @@
-variable "name" {
-  description = "(Required) Specifies the name of the storage account. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group."
+//SHARED VARIABLES
+
+variable "product" {
+  type        = "string"
+  description = "The name of your application"
+}
+
+variable "env" {
+  type        = "string"
+  description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
 variable "resource_group_name" {
-  description = "(Required) The name of the resource group in which to create the storage account. Changing this forces a new resource to be created."
-  default     = "description"
+  type        = "string"
+  description = "This is the prefix your resource group name will have for your shared infrastructure"
 }
 
 variable "location" {
@@ -49,4 +57,20 @@ variable "account_encryption_source" {
 
 variable "custom_domain" {
   description = "(Optional) A custom_domain block as documented below."
+}
+
+//TAG SPECIFIC VARIABLES
+variable "team_name" {
+  description = "The name of your team"
+  default     = "CNP (Contino)"
+}
+
+variable "team_contact" {
+  description = "The name of your Slack channel people can use to contact your team about your infrastructure"
+  default     = "#Cloud-Native"
+}
+
+variable "destroy_me" {
+  description = "Here be dragons! In the future if this is set to Yes then automation will delete this resource on a schedule. Please set to No unless you know what you are doing"
+  default     = "No"
 }
