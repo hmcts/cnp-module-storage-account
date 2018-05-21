@@ -48,11 +48,6 @@ output "storageaccount_primary_file_endpoint" {
   description = "The endpoint URL for file storage in the primary location."
 }
 
-output "storageaccount_secondary_file_endpoint" {
-  value       = "${azurerm_storage_account.storage_account.secondary_file_endpoint}"
-  description = "The endpoint URL for file storage in the secondary location."
-}
-
 output "storageaccount_primary_access_key" {
   value       = "${azurerm_storage_account.storage_account.primary_access_key}"
   description = "The primary access key for the storage account."
