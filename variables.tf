@@ -1,9 +1,4 @@
 //SHARED VARIABLES
-variable "product" {
-  type        = "string"
-  description = "The name of your application"
-}
-
 variable "env" {
   type        = "string"
   description = "The deployment environment (sandbox, aat, prod etc..)"
