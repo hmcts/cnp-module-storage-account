@@ -54,10 +54,6 @@ variable "account_encryption_source" {
   description = "(Optional) The Encryption Source for this Storage Account. Possible values are Microsoft.Keyvault and Microsoft.Storage. Defaults to Microsoft.Storage."
 }
 
-variable "custom_domain" {
-  description = "(Optional) A custom_domain block as documented below."
-}
-
 //TAG SPECIFIC VARIABLES
 variable "team_name" {
   description = "The name of your team"
