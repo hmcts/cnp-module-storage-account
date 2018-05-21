@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storage_account" {
-  name                      = "${var.product}-${var.env}-shared"
+  name                      = "${var.product}${var.env}"
   resource_group_name       = "${var.resource_group_name}"
   location                  = "${var.location}"
   account_kind              = "${var.account_kind}"
