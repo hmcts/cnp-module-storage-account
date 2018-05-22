@@ -18,6 +18,8 @@ output "storageaccount_primary_blob_endpoint" {
   description = "The endpoint URL for blob storage in the primary location."
 }
 
+// Commented Out the outputs that are not valid for this implementation. These depend on what storage tier/sku you choose.
+
 /* output "storageaccount_secondary_blob_endpoint" {
   value       = "${azurerm_storage_account.storage_account.secondary_blob_endpoint}"
   description = "The endpoint URL for blob storage in the secondary location."
