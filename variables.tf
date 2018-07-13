@@ -4,6 +4,10 @@ variable "env" {
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
+variable "storage_account_name" {
+  description = "(Required) Specifies the name of the storage account. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group."
+}
+
 variable "resource_group_name" {
   type        = "string"
   description = "This is the prefix your resource group name will have for your shared infrastructure"
