@@ -51,7 +51,6 @@ variable "enable_https_traffic_only" {
 
 variable "account_encryption_source" {
   description = "(Optional) The Encryption Source for this Storage Account. Possible values are Microsoft.Keyvault and Microsoft.Storage. Defaults to Microsoft.Storage."
-  default     = "Microsoft.Storage"
 }
 
 //TAG SPECIFIC VARIABLES
