@@ -39,14 +39,17 @@ variable "access_tier" {
 
 variable "enable_blob_encryption" {
   description = "(Optional) Boolean flag which controls if Encryption Services are enabled for Blob storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information."
+  default     = "true"
 }
 
 variable "enable_file_encryption" {
   description = "(Optional) Boolean flag which controls if Encryption Services are enabled for File storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information."
+  default     = "true"
 }
 
 variable "enable_https_traffic_only" {
   description = "(Optional) Boolean flag which forces HTTPS if enabled, see https://docs.microsoft.com/en-us/azure/storage/storage-require-secure-transfer/ for more information."
+  default     = "true"
 }
 
 variable "account_encryption_source" {
