@@ -3,6 +3,11 @@ output "storageaccount_id" {
   description = "The storage account Resource ID. "
 }
 
+output "storageaccount_name" {
+  value = "${var.storage_account_name}"
+  description = "The storage account name."
+}
+
 output "storageaccount_primary_location" {
   value       = "${azurerm_storage_account.storage_account.primary_location}"
   description = "The primary location of the storage account."
