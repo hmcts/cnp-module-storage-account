@@ -4,7 +4,7 @@ output "storageaccount_id" {
 }
 
 output "storageaccount_name" {
-  value = "${var.storage_account_name}"
+  value       = "${azurerm_storage_account.storage_account.name}"
   description = "The storage account name."
 }
 
