@@ -22,10 +22,11 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only = "${var.enable_https_traffic_only}"
   account_encryption_source = "${var.account_encryption_source}"
 
-  tags {
-    "Deployment Environment" = "${var.env}"
-    "Team Name"              = "${var.team_name}"
-    "Team Contact"           = "${var.team_contact}"
-    "Destroy Me"             = "${var.destroy_me}"
-  }
+  tags = "${merge(var.common_tags,
+    map(
+      "Deployment Environment", var.env,
+      "Team Contact", var.team_contact,
+      "Destroy Me", var.destroy_me
+    )
+  )}"
 }
