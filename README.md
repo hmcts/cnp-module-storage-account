@@ -1,4 +1,4 @@
-# moj-module-storage-account
+# cnp-module-storage-account
 Terraservice Module for creating an Azure Resource Manager based storage account.
 
 ## Testing
