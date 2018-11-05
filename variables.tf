@@ -57,6 +57,18 @@ variable "account_encryption_source" {
   default     = "Microsoft.Storage"
 }
 
+variable "ip_rules" {
+  type = "list"
+  description = "(Optional) List of public IP addresses which will have access to storage account."
+  default=[]
+}
+
+variable "sa_subnets" {
+  type = "list"
+  description = "(Required) List of subnet ID's which will have access to this storage account."
+  default=[]
+}
+
 //TAG SPECIFIC VARIABLES
 variable "team_name" {
   description = "The name of your team"

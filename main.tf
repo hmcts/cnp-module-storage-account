@@ -22,6 +22,12 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only = "${var.enable_https_traffic_only}"
   account_encryption_source = "${var.account_encryption_source}"
 
+  network_rules {
+    bypass                     = ["AzureServices"]
+    ip_rules                   = ["${var.ip_rules}"]
+    virtual_network_subnet_ids = ["${var.sa_subnets}"]
+  }
+
   tags = "${merge(var.common_tags,
     map(
       "Deployment Environment", var.env,
