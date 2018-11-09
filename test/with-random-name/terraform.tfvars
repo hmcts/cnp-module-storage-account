@@ -1,6 +1,6 @@
 env = "devtest"
 
-storage_account_name = "cnpdevtestsa1324598"
+storage_account_name = ""
 
 resource_group_name = "cnp-devtest"
 

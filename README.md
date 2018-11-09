@@ -65,9 +65,11 @@ This module was created with assumption that all required subnets are already pr
 In special cases when as part of running this module you are also creating new subnet which should be added to subnet rules inside storage account please ensure to use `depends_on` section. 
 This way module will wait for subnet to get created first before attempting to reference it.
 
+For examples you can refer to files inside test folder of this repository.
+
 Example: 
 
 ```
-depends_on = ["azurerm_subnet.my_subnet"]
+depends_on = ["${azurerm_subnet.subnet1.id}","${azurerm_subnet.subnet2.id}"]
 ```
 
