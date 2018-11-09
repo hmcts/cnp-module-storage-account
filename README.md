@@ -36,7 +36,7 @@ module "storage_account" {
 
 ## Important note about network access 
 
-This module will automatically prevent access to this Storage Account data plane from public internet.
+This module will automatically prevent access to Storage Account data plane from public internet.
 
 You need to explicitly provide either list of public IP's or Azure subnets ID's to allow access.
 
@@ -60,9 +60,9 @@ Example:
 
 ## Using this module with new subnet
 
-This module was created with assumption that all required subnets are already present in Azure prior to running this module.
+This module was created with assumption that all required subnets are already present in Azure prior to running it.
 
-In special cases when as part of running this module you are also creating new subnet which should be added to subnet rules for inside storage account please ensure to use `depends_on` section. 
+In special cases when as part of running this module you are also creating new subnet which should be added to subnet rules inside storage account please ensure to use `depends_on` section. 
 This way module will wait for subnet to get created first before attempting to reference it.
 
 Example: 
