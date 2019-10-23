@@ -69,6 +69,11 @@ variable "sa_subnets" {
   default=[]
 }
 
+variable "default_action" {
+  description = "(Optional) Network rules default action"
+  default = "Deny"
+}
+
 //TAG SPECIFIC VARIABLES
 variable "team_name" {
   description = "The name of your team"
