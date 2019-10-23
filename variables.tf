@@ -70,7 +70,7 @@ variable "sa_subnets" {
 }
 
 variable "default_action" {
-  description = "(Required) Network rules default action"
+  description = "(Optional) Network rules default action"
   default = "Deny"
 }
 
