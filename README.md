@@ -8,13 +8,11 @@ The directories under `test/` provide different testing scenarios.  To use:
 
 ## How to use this module
 
-Please ensure to point modules reference to specific version rather than just master branch.
-
 Example:
 
 ```
 module "storage_account" {
-  source                   = "git@github.com:hmcts/cnp-module-storage-account.git?ref=1.0"
+  source                   = "git@github.com:hmcts/cnp-module-storage-account.git?ref=master"
   env                      = "${var.env}"
   storage_account_name     = "${var.storage_account_name}"
   resource_group_name      = "${var.resource_group_name}"
