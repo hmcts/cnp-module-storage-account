@@ -96,9 +96,3 @@ variable "common_tags" {
     "Team Name" = "pleaseTagMe"
   }
 }
-
-variable depends_on {
-  default = [], 
-  type = "list"
-  description = "This is required only when creating subnet at the same time as storage account - please refer to readme for more info."
-}
