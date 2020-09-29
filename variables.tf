@@ -58,20 +58,20 @@ variable "account_encryption_source" {
 }
 
 variable "ip_rules" {
-  type = "list"
+  type        = "list"
   description = "(Optional) List of public IP addresses which will have access to storage account."
-  default=[]
+  default     = []
 }
 
 variable "sa_subnets" {
-  type = "list"
+  type        = "list"
   description = "(Required) List of subnet ID's which will have access to this storage account."
-  default=[]
+  default     = []
 }
 
 variable "default_action" {
   description = "(Optional) Network rules default action"
-  default = "Deny"
+  default     = "Deny"
 }
 
 //TAG SPECIFIC VARIABLES
