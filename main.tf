@@ -21,9 +21,9 @@ resource "azurerm_storage_account" "storage_account" {
 
   network_rules {
     bypass                     = ["AzureServices"]
-    ip_rules                   = [var.ip_rules]
-    virtual_network_subnet_ids = [var.sa_subnets]
-    default_action             = "${var.default_action}"
+    ip_rules                   = var.ip_rules
+    virtual_network_subnet_ids = var.sa_subnets
+    default_action             = var.default_action
   }
 
   tags = merge(var.common_tags,
