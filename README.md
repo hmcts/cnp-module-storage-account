@@ -13,22 +13,19 @@ Example:
 ```
 module "storage_account" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account.git?ref=master"
-  env                      = "${var.env}"
-  storage_account_name     = "${var.storage_account_name}"
-  resource_group_name      = "${var.resource_group_name}"
-  location                 = "${var.azurerm_location}"
-  account_kind             = "${var.account_kind}"
-  account_tier             = "${var.account_tier}"
-  account_replication_type = "${var.account_replication_type}"
-  access_tier              = "${var.access_tier}"
+  env                      = var.env
+  storage_account_name     = var.storage_account_name
+  resource_group_name      = var.resource_group_name
+  location                 = var.azurerm_location
+  account_kind             = var.account_kind
+  account_tier             = var.account_tier
+  account_replication_type = var.account_replication_type
+  access_tier              = var.access_tier
 
-  ip_rules = "${var.ip_rules}"
+  ip_rules = var.ip_rules
 
-  sa_subnets = "${var.sa_subnets}"
+  sa_subnets = var.sa_subnets
 
-  enable_blob_encryption    = "${var.enable_blob_encryption}"
-  enable_file_encryption    = "${var.enable_file_encryption}"
-  enable_https_traffic_only = "${var.enable_https_traffic_only}"
 }
 ```
 
