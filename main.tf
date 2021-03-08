@@ -47,15 +47,15 @@ resource "azurerm_storage_account" "storage_account" {
 
 # To be removed when the Azure Terraform Prodider supports Storage Account Data Protection features.
 resource "azurerm_template_deployment" "storage_account_data_protection" {
-    count = var.enable_data_protection == true ? 1 : 0
+  count = var.enable_data_protection == true ? 1 : 0
 
-    name                     = "StorageAccountDataProtection"
-    resource_group_name      = var.resource_group_name
-    deployment_mode          = "Incremental"
-    parameters               = {
-        "storageAccount"     = azurerm_storage_account.storage_account.name
-    }
-    template_body = <<DEPLOY
+  name                = "StorageAccountDataProtection"
+  resource_group_name = var.resource_group_name
+  deployment_mode     = "Incremental"
+  parameters = {
+    "storageAccount" = azurerm_storage_account.storage_account.name
+  }
+  template_body = <<DEPLOY
         {
             "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",

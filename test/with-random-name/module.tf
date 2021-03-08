@@ -43,7 +43,7 @@ module "storage_account" {
   team_name                 = "${var.team_name}"
   team_contact              = "${var.team_contact}"
   destroy_me                = "${var.destroy_me}"
-  sa_subnets                = ["${azurerm_subnet.subnet1.id}","${azurerm_subnet.subnet2.id}"]
+  sa_subnets                = ["${azurerm_subnet.subnet1.id}", "${azurerm_subnet.subnet2.id}"]
   ip_rules                  = ["${var.ip_rules}"]
-  depends_on                = ["${azurerm_subnet.subnet1.id}","${azurerm_subnet.subnet2.id}"]
+  depends_on                = ["${azurerm_subnet.subnet1.id}", "${azurerm_subnet.subnet2.id}"]
 }
