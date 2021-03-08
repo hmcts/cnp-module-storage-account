@@ -19,6 +19,16 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier               = var.access_tier
   enable_https_traffic_only = var.enable_https_traffic_only
 
+  # To be refactored when the Azure Terraform Prodider supports Storage Account Data Protection features.
+  dynamic "blob_properties" {
+    for_each = var.enable_data_protection == true ? [1] : []
+    content {
+      delete_retention_policy {
+        days = 365
+      }
+    }
+  }
+
   network_rules {
     bypass                     = ["AzureServices"]
     ip_rules                   = var.ip_rules
@@ -33,4 +43,51 @@ resource "azurerm_storage_account" "storage_account" {
       "Destroy Me", var.destroy_me
     )
   )
+}
+
+# To be removed when the Azure Terraform Prodider supports Storage Account Data Protection features.
+resource "azurerm_template_deployment" "storage_account_data_protection" {
+    count = var.enable_data_protection == true ? 1 : 0
+
+    name                     = "StorageAccountDataProtection"
+    resource_group_name      = var.resource_group_name
+    deployment_mode          = "Incremental"
+    parameters               = {
+        "storageAccount"     = azurerm_storage_account.storage_account.name
+    }
+    template_body = <<DEPLOY
+        {
+            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+            "contentVersion": "1.0.0.0",
+            "parameters": {
+                "storageAccount": {
+                    "type": "string",
+                    "metadata": {
+                        "description": "Storage Account Name"}
+                }
+            },
+            "variables": {},
+            "resources": [
+                {
+                    "type": "Microsoft.Storage/storageAccounts/blobServices",
+                    "apiVersion": "2019-06-01",
+                    "name": "[concat(parameters('storageAccount'), '/default')]",
+                    "properties": {
+                        "IsVersioningEnabled": true,
+                        "ChangeFeed": {
+                            "enabled": true
+                        },
+                        "RestorePolicy": {
+                            "enabled": true,
+                            "days": 364
+                        },
+                        "ContainerDeleteRetentionPolicy": {
+                            "enabled": true,
+                            "days": 7
+                        }
+                    }
+                }
+            ]
+        }
+    DEPLOY
 }
