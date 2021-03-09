@@ -49,7 +49,7 @@ resource "azurerm_storage_account" "storage_account" {
 resource "azurerm_template_deployment" "storage_account_data_protection" {
   count = var.enable_data_protection == true ? 1 : 0
 
-  name                = "StorageAccountDataProtection"
+  name                = format("StorageAccountDataProtection-%s", var.environment)
   resource_group_name = var.resource_group_name
   deployment_mode     = "Incremental"
   parameters = {
