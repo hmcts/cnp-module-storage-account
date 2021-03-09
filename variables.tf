@@ -42,6 +42,11 @@ variable "enable_blob_encryption" {
   default     = "true"
 }
 
+variable "enable_data_protection" {
+  description = "(Optional) Boolean flag which controls if Data Protection are enabled for Blob storage, see https://docs.microsoft.com/en-us/azure/storage/blobs/versioning-overview for more information."
+  default     = "false"
+}
+
 variable "enable_file_encryption" {
   description = "(Optional) Boolean flag which controls if Encryption Services are enabled for File storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information."
   default     = "true"
