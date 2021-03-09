@@ -19,7 +19,7 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier               = var.access_tier
   enable_https_traffic_only = var.enable_https_traffic_only
 
-  # To be refactored when the Azure Terraform Prodider supports Storage Account Data Protection features.
+  # To be refactored when the Azure Terraform Prodider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
     content {
@@ -45,7 +45,7 @@ resource "azurerm_storage_account" "storage_account" {
   )
 }
 
-# To be removed when the Azure Terraform Prodider supports Storage Account Data Protection features.
+# To be removed when the Azure Terraform Prodider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
 resource "azurerm_template_deployment" "storage_account_data_protection" {
   count = var.enable_data_protection == true ? 1 : 0
 
