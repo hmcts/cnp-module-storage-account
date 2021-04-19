@@ -74,7 +74,7 @@ depends_on = ["${azurerm_subnet.subnet1.id}","${azurerm_subnet.subnet2.id}"]
 ```
 
 ## Assigning roles to a Managed Identity
-In order to grant access to the Storage Account to a specific Managed Identity, you can now provide the Object Id for 
+In order to grant access to the Storage Account to a specific Managed Identity, you can provide the Object Id for 
 MI along with a list of [roles](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage) 
 to assign to it. There is a variable called `allowed_roles` in [main.tf](./main.tf) which is whitelist of roles which 
 can be used. A PR will be needed if different roles are required.
