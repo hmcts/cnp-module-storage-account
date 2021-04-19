@@ -7,6 +7,15 @@ resource "random_string" "storage_account_random_string" {
 locals {
   default_storage_account_name = random_string.storage_account_random_string.result
   storage_account_name         = var.storage_account_name != "" ? var.storage_account_name : local.default_storage_account_name
+
+  allowed_roles = [
+    "Storage Blob Delegator",
+    "Storage Blob Data Contributor"
+  ]
+
+  role_assignments = [
+    for role in var.role_assignments : role if contains(local.allowed_roles, role)
+  ]
 }
 
 resource "azurerm_storage_account" "storage_account" {
@@ -19,7 +28,7 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier               = var.access_tier
   enable_https_traffic_only = var.enable_https_traffic_only
 
-  # To be refactored when the Azure Terraform Prodider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
+  # To be refactored when the Azure Terraform Provider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
     content {
@@ -43,6 +52,13 @@ resource "azurerm_storage_account" "storage_account" {
       "Destroy Me", var.destroy_me
     )
   )
+}
+
+resource "azurerm_role_assignment" "storage-account-role-assignment" {
+  for_each             = toset(local.role_assignments)
+  scope                = azurerm_storage_account.storage_account.id
+  role_definition_name = each.value
+  principal_id         = var.managed_identity_object_id
 }
 
 # To be removed when the Azure Terraform Prodider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
