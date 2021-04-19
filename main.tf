@@ -28,7 +28,7 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier               = var.access_tier
   enable_https_traffic_only = var.enable_https_traffic_only
 
-  # To be refactored when the Azure Terraform Prodider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
+  # To be refactored when the Azure Terraform Provider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
     content {
@@ -54,7 +54,7 @@ resource "azurerm_storage_account" "storage_account" {
   )
 }
 
-resource "azurerm_role_assignment" "storage-account-send-letter-blob-delegator-role" {
+resource "azurerm_role_assignment" "storage-account-role-assignment" {
   count                = length(local.role_assignments)
   scope                = azurerm_storage_account.storage_account.id
   role_definition_name = local.role_assignments[count.index]
