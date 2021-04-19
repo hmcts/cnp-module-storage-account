@@ -7,6 +7,15 @@ resource "random_string" "storage_account_random_string" {
 locals {
   default_storage_account_name = random_string.storage_account_random_string.result
   storage_account_name         = var.storage_account_name != "" ? var.storage_account_name : local.default_storage_account_name
+
+  allowed_roles = [
+    "Storage Blob Delegator",
+    "Storage Blob Data Contributor"
+  ]
+
+  role_assignments = [
+    for role in var.role_assignments : role if contains(local.allowed_roles, role)
+  ]
 }
 
 resource "azurerm_storage_account" "storage_account" {
@@ -43,6 +52,13 @@ resource "azurerm_storage_account" "storage_account" {
       "Destroy Me", var.destroy_me
     )
   )
+}
+
+resource "azurerm_role_assignment" "storage-account-send-letter-blob-delegator-role" {
+  count                = length(local.role_assignments)
+  scope                = azurerm_storage_account.storage_account.id
+  role_definition_name = local.role_assignments[count.index]
+  principal_id         = var.managed_identity_object_id
 }
 
 # To be removed when the Azure Terraform Prodider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268

@@ -79,6 +79,17 @@ variable "default_action" {
   default     = "Deny"
 }
 
+variable "managed_identity_object_id" {
+  description = "(Optional) Object Id for a Managed Identity to assign roles to the scope of this storage account."
+  default     = ""
+}
+
+variable "role_assignments" {
+  type        = "list"
+  description = "(Optional) List of roles to assign to the provided Managed Identity, scoped to this storage account."
+  default     = []
+}
+
 //TAG SPECIFIC VARIABLES
 variable "team_name" {
   description = "The name of your team"
