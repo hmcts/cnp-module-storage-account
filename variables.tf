@@ -80,7 +80,7 @@ variable "default_action" {
 }
 
 variable "managed_identity_object_id" {
-  description = "(Optional) Object Id for a Managed Identity to assign roles to the scope of this storage account."
+  description = "(Optional) Object Id for a Managed Identity to assign roles to, scoped to this storage account."
   default     = ""
 }
 

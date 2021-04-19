@@ -55,9 +55,9 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_role_assignment" "storage-account-role-assignment" {
-  count                = length(local.role_assignments)
+  for_each             = toset( local.role_assignments )
   scope                = azurerm_storage_account.storage_account.id
-  role_definition_name = local.role_assignments[count.index]
+  role_definition_name = each.value
   principal_id         = var.managed_identity_object_id
 }
 
