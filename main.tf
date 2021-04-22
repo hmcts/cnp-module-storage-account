@@ -10,7 +10,8 @@ locals {
 
   allowed_roles = [
     "Storage Blob Delegator",
-    "Storage Blob Data Contributor"
+    "Storage Blob Data Contributor",
+    "Storage Blob Data Reader"
   ]
 
   role_assignments = [
