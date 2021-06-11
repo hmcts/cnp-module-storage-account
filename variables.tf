@@ -10,7 +10,7 @@ variable "storage_account_name" {
 
 variable "resource_group_name" {
   type        = string
-  description = "This is the prefix your resource group name will have for your shared infrastructure"
+  description = "(Required)This is the prefix your resource group name will have for your shared infrastructure"
 }
 
 variable "location" {
