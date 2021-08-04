@@ -29,13 +29,16 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier               = var.access_tier
   enable_https_traffic_only = var.enable_https_traffic_only
 
-  # To be refactored when the Azure Terraform Provider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
-    content {
-      delete_retention_policy {
-        days = 365
-      }
+      content {
+        versioning_enabled = true
+        container_delete_retention_policy {
+          days = 7
+        }
+        delete_retention_policy {
+          days = 365
+        }
     }
   }
 
@@ -60,51 +63,4 @@ resource "azurerm_role_assignment" "storage-account-role-assignment" {
   scope                = azurerm_storage_account.storage_account.id
   role_definition_name = each.value
   principal_id         = var.managed_identity_object_id
-}
-
-# To be removed when the Azure Terraform Prodider supports Storage Account Data Protection features - GitHub Issue: https://github.com/terraform-providers/terraform-provider-azurerm/issues/8268
-resource "azurerm_template_deployment" "storage_account_data_protection" {
-  count = var.enable_data_protection == true ? 1 : 0
-
-  name                = format("StorageAccountDataProtection-%s", var.env)
-  resource_group_name = var.resource_group_name
-  deployment_mode     = "Incremental"
-  parameters = {
-    "storageAccount" = azurerm_storage_account.storage_account.name
-  }
-  template_body = <<DEPLOY
-        {
-            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-            "contentVersion": "1.0.0.0",
-            "parameters": {
-                "storageAccount": {
-                    "type": "string",
-                    "metadata": {
-                        "description": "Storage Account Name"}
-                }
-            },
-            "variables": {},
-            "resources": [
-                {
-                    "type": "Microsoft.Storage/storageAccounts/blobServices",
-                    "apiVersion": "2019-06-01",
-                    "name": "[concat(parameters('storageAccount'), '/default')]",
-                    "properties": {
-                        "IsVersioningEnabled": true,
-                        "ChangeFeed": {
-                            "enabled": true
-                        },
-                        "RestorePolicy": {
-                            "enabled": true,
-                            "days": 364
-                        },
-                        "ContainerDeleteRetentionPolicy": {
-                            "enabled": true,
-                            "days": 7
-                        }
-                    }
-                }
-            ]
-        }
-    DEPLOY
 }
