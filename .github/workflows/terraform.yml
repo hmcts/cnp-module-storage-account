@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  TF_VERSION: 0.14.09
+  TF_VERSION: 0.13.4
 
 jobs:
   terraform:
