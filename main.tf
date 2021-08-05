@@ -140,10 +140,11 @@ resource "azurerm_template_deployment" "storage_account_data_protection" {
 
 
 module "storage_account_containers" {
-  count = length(var.containers)
+  source   = "./container"
+  for_each = var.containers
 
-  source               = "./container"
   storage_account_name = azurerm_storage_account.storage_account.name
-  container_name       = var.containers[count.index].name
-  container_access     = var.containers[count.index].access_type
+  container_name       = each.value.name
+  container_access     = each.value.access_type
+
 }
