@@ -55,6 +55,35 @@ resource "azurerm_storage_account" "storage_account" {
   )
 }
 
+resource "azurerm_storage_management_policy" "storage-account-policy" {
+  storage_account_id = azurerm_storage_account.storage_account.id
+
+  dynamic "rule" {
+    for_each = var.policy
+    content {
+      name    = rule.name
+      enabled = true
+      filters {
+        prefix_match = rule.filters.prefix_match
+        blob_types   = rule.filters.blob_types
+      }
+      actions {
+        version {
+          delete_after_days_since_creation = rule.actions.version_delete_after_days_since_creation
+        }
+      }
+    }
+  }
+}
+
+resource "azurerm_management_lock" "sa" {
+  count      = var.lock_name == "" ? 0 : 1
+  name       = var.lock_name
+  scope      = azurerm_storage_account.storage_account.id
+  lock_level = var.lock_level
+  notes      = var.lock_notes
+}
+
 resource "azurerm_role_assignment" "storage-account-role-assignment" {
   for_each             = toset(local.role_assignments)
   scope                = azurerm_storage_account.storage_account.id
@@ -107,4 +136,14 @@ resource "azurerm_template_deployment" "storage_account_data_protection" {
             ]
         }
     DEPLOY
+}
+
+
+module "storage_account_containers" {
+  count = length(var.containers)
+
+  source               = "./container"
+  storage_account_name = azurerm_storage_account.storage_account.name
+  container_name       = var.containers[count.index].name
+  container_access     = var.containers[count.index].access_type
 }
