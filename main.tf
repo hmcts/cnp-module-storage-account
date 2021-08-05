@@ -137,14 +137,3 @@ resource "azurerm_template_deployment" "storage_account_data_protection" {
         }
     DEPLOY
 }
-
-
-module "storage_account_containers" {
-  source   = "./container"
-  for_each = var.containers
-
-  storage_account_name = azurerm_storage_account.storage_account.name
-  container_name       = each.value.name
-  container_access     = each.value.access_type
-
-}

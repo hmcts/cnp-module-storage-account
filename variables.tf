@@ -145,13 +145,3 @@ variable "lock_notes" {
   description = "Storage Account Lock Notes"
   default     = ""
 }
-
-// Containers
-variable "containers" {
-  type = list(object({
-    name        = string
-    access_type = string
-  }))
-  description = "List of Storage Containers"
-  default     = []
-}
