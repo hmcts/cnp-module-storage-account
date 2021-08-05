@@ -12,11 +12,11 @@ variable "enable_https_traffic_only" {}
 variable "account_encryption_source" {}
 
 variable "ip_rules" {
-  type = "list"
+  type = list(any)
 }
 
 variable "sa_subnets" {
-  type = "list"
+  type = list(any)
 }
 
 variable "team_name" {}
@@ -25,7 +25,7 @@ variable "destroy_me" {}
 variable "vnet_name" {}
 
 variable "vnet_address_space" {
-  type = "list"
+  type = list(any)
 }
 
 variable "subnet1_name" {}
@@ -34,8 +34,8 @@ variable "subnet1_address_space" {}
 variable "subnet2_name" {}
 variable "subnet2_address_space" {}
 
-variable depends_on {
+variable "depends_on" {
   default = []
 
-  type = "list"
+  type = list(any)
 }
