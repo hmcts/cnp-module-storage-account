@@ -129,23 +129,6 @@ variable "policy" {
   default     = []
 }
 
-//Lock 
-variable "lock_name" {
-  type        = string
-  description = "Storage Account Lock Name"
-  default     = ""
-}
-variable "lock_level" {
-  type        = string
-  description = "Storage Account Lock Level"
-  default     = ""
-}
-variable "lock_notes" {
-  type        = string
-  description = "Storage Account Lock Notes"
-  default     = ""
-}
-
 // Containers
 variable "containers" {
   type = list(object({

@@ -76,14 +76,6 @@ resource "azurerm_storage_management_policy" "storage-account-policy" {
   }
 }
 
-resource "azurerm_management_lock" "sa" {
-  count      = var.lock_name == "" ? 0 : 1
-  name       = var.lock_name
-  scope      = azurerm_storage_account.storage_account.id
-  lock_level = var.lock_level
-  notes      = var.lock_notes
-}
-
 resource "azurerm_role_assignment" "storage-account-role-assignment" {
   for_each             = toset(local.role_assignments)
   scope                = azurerm_storage_account.storage_account.id
