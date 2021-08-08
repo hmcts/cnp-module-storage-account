@@ -32,10 +32,10 @@ resource "azurerm_storage_account" "storage_account" {
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
     content {
-      /* versioning_enabled = true
+      versioning_enabled = true
       container_delete_retention_policy {
         days = 7
-      } */
+      }
       delete_retention_policy {
         days = 365
       }
