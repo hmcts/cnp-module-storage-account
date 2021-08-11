@@ -89,7 +89,7 @@ Currently there is only version deletion policy coded in, but it can be expanded
 ```
 sa_policy = [
     {
-      name = "Blob Retion Policy"
+      name = "Blob Retention Policy"
       filters = {
         prefix_match = ["container1/prefix1"]
         blob_types   = ["blockBlob"]
