@@ -47,11 +47,11 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   tags = merge(var.common_tags,
-    map(
-      "Deployment Environment", var.env,
-      "Team Contact", var.team_contact,
-      "Destroy Me", var.destroy_me
-    )
+    tomap({
+      "Deployment Environment" = var.env,
+      "Team Contact"           = var.team_contact,
+      "Destroy Me"             = var.destroy_me
+    })
   )
 }
 

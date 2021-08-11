@@ -1,6 +1,6 @@
 //SHARED VARIABLES
 variable "env" {
-  type        = "string"
+  type        = string
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
@@ -9,7 +9,7 @@ variable "storage_account_name" {
 }
 
 variable "resource_group_name" {
-  type        = "string"
+  type        = string
   description = "This is the prefix your resource group name will have for your shared infrastructure"
 }
 
@@ -63,13 +63,13 @@ variable "account_encryption_source" {
 }
 
 variable "ip_rules" {
-  type        = "list"
+  type        = list(any)
   description = "(Optional) List of public IP addresses which will have access to storage account."
   default     = []
 }
 
 variable "sa_subnets" {
-  type        = "list"
+  type        = list(any)
   description = "(Required) List of subnet ID's which will have access to this storage account."
   default     = []
 }
@@ -85,7 +85,7 @@ variable "managed_identity_object_id" {
 }
 
 variable "role_assignments" {
-  type        = "list"
+  type        = list(any)
   description = "(Optional) List of roles to assign to the provided Managed Identity, scoped to this storage account."
   default     = []
 }
@@ -107,7 +107,7 @@ variable "destroy_me" {
 }
 
 variable "common_tags" {
-  type = "map"
+  type = map(any)
   default = {
     "Team Name" = "pleaseTagMe"
   }
