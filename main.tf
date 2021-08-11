@@ -55,6 +55,27 @@ resource "azurerm_storage_account" "storage_account" {
   )
 }
 
+resource "azurerm_storage_management_policy" "storage-account-policy" {
+  storage_account_id = azurerm_storage_account.storage_account.id
+
+  dynamic "rule" {
+    for_each = var.policy
+    content {
+      name    = rule.name
+      enabled = true
+      filters {
+        prefix_match = rule.filters.prefix_match
+        blob_types   = rule.filters.blob_types
+      }
+      actions {
+        version {
+          delete_after_days_since_creation = rule.actions.version_delete_after_days_since_creation
+        }
+      }
+    }
+  }
+}
+
 resource "azurerm_role_assignment" "storage-account-role-assignment" {
   for_each             = toset(local.role_assignments)
   scope                = azurerm_storage_account.storage_account.id
