@@ -61,15 +61,15 @@ resource "azurerm_storage_management_policy" "storage-account-policy" {
   dynamic "rule" {
     for_each = var.policy
     content {
-      name    = rule.name
+      name    = rule.value.name
       enabled = true
       filters {
-        prefix_match = rule.filters.prefix_match
-        blob_types   = rule.filters.blob_types
+        prefix_match = rule.value.filters.prefix_match
+        blob_types   = rule.value.filters.blob_types
       }
       actions {
         version {
-          delete_after_days_since_creation = rule.actions.version_delete_after_days_since_creation
+          delete_after_days_since_creation = rule.value.actions.version_delete_after_days_since_creation
         }
       }
     }
