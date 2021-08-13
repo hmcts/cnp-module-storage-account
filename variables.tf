@@ -1,6 +1,6 @@
 //SHARED VARIABLES
 variable "env" {
-  type        = "string"
+  type        = string
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
@@ -9,7 +9,7 @@ variable "storage_account_name" {
 }
 
 variable "resource_group_name" {
-  type        = "string"
+  type        = string
   description = "This is the prefix your resource group name will have for your shared infrastructure"
 }
 
@@ -63,13 +63,13 @@ variable "account_encryption_source" {
 }
 
 variable "ip_rules" {
-  type        = "list"
+  type        = list(string)
   description = "(Optional) List of public IP addresses which will have access to storage account."
   default     = []
 }
 
 variable "sa_subnets" {
-  type        = "list"
+  type        = list(string)
   description = "(Required) List of subnet ID's which will have access to this storage account."
   default     = []
 }
@@ -85,7 +85,7 @@ variable "managed_identity_object_id" {
 }
 
 variable "role_assignments" {
-  type        = "list"
+  type        = list(string)
   description = "(Optional) List of roles to assign to the provided Managed Identity, scoped to this storage account."
   default     = []
 }
@@ -107,8 +107,34 @@ variable "destroy_me" {
 }
 
 variable "common_tags" {
-  type = "map"
+  type = map(string)
   default = {
     "Team Name" = "pleaseTagMe"
   }
+}
+
+//Management Lifecycle
+variable "policy" {
+  type = list(object({
+    name = string
+    filters = object({
+      prefix_match = list(string)
+      blob_types   = list(string)
+    })
+    actions = object({
+      version_delete_after_days_since_creation = number
+    })
+  }))
+  description = "Storage Account Managment Policy"
+  default     = []
+}
+
+// Containers
+variable "containers" {
+  type = list(object({
+    name        = string
+    access_type = string
+  }))
+  description = "List of Storage Containers"
+  default     = []
 }

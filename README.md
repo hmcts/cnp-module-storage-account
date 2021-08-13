@@ -78,3 +78,25 @@ In order to grant access to the Storage Account to a specific Managed Identity, 
 MI along with a list of [roles](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage) 
 to assign to it. There is a variable called `allowed_roles` in [main.tf](./main.tf) which is whitelist of roles which 
 can be used. A PR will be needed if different roles are required.
+
+## Management Policy
+Management Policy creates a lifecycle policy for the storage account.
+Currently there is only version deletion policy coded in, but it can be expanded to consider more actions.
+
+[Terraform Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_management_policy)
+
+### Example Usage
+```
+sa_policy = [
+    {
+      name = "BlobRetentionPolicy"
+      filters = {
+        prefix_match = ["container1/prefix1"]
+        blob_types   = ["blockBlob"]
+      }
+      actions = {
+        version_delete_after_days_since_creation = 180
+      }
+    }
+  ]
+```

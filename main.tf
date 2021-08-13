@@ -50,12 +50,33 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   tags = merge(var.common_tags,
-    map(
-      "Deployment Environment", var.env,
-      "Team Contact", var.team_contact,
-      "Destroy Me", var.destroy_me
-    )
+    tomap({
+      "Deployment Environment" = var.env,
+      "Team Contact"           = var.team_contact,
+      "Destroy Me"             = var.destroy_me
+    })
   )
+}
+
+resource "azurerm_storage_management_policy" "storage-account-policy" {
+  storage_account_id = azurerm_storage_account.storage_account.id
+
+  dynamic "rule" {
+    for_each = var.policy
+    content {
+      name    = rule.value.name
+      enabled = true
+      filters {
+        prefix_match = rule.value.filters.prefix_match
+        blob_types   = rule.value.filters.blob_types
+      }
+      actions {
+        version {
+          delete_after_days_since_creation = rule.value.actions.version_delete_after_days_since_creation
+        }
+      }
+    }
+  }
 }
 
 resource "azurerm_role_assignment" "storage-account-role-assignment" {
