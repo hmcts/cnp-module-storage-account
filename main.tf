@@ -61,7 +61,7 @@ resource "azurerm_storage_account" "storage_account" {
 resource "azurerm_storage_management_policy" "storage-account-policy" {
   storage_account_id = azurerm_storage_account.storage_account.id
 
-  dynamic "rule" {
+  dynamic "rules" {
     for_each = var.policy
     content {
       name    = rule.value.name
