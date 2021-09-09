@@ -58,7 +58,7 @@ resource "azurerm_storage_account" "storage_account" {
   )
 }
 
-rresource "azurerm_storage_management_policy" "storage-account-policy" {
+resource "azurerm_storage_management_policy" "storage-account-policy" {
   count              = length(var.policy) > 0 ? 1 : 0
   storage_account_id = azurerm_storage_account.storage_account.id
 
