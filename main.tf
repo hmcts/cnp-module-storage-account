@@ -28,7 +28,7 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type  = var.account_replication_type
   access_tier               = var.access_tier
   enable_https_traffic_only = var.enable_https_traffic_only
-  min_tls_version          = "TLS1_2"
+  min_tls_version           = "TLS1_2"
 
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
