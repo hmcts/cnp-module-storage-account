@@ -66,7 +66,7 @@ resource "azurerm_storage_account" "storage_account" {
     })
   )
 
-  create_duration ="30s"
+ 
 }
 
 resource "azurerm_storage_management_policy" "storage-account-policy" {
