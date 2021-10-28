@@ -53,7 +53,7 @@ resource "azurerm_storage_account" "storage_account" {
 
   network_rules {
     bypass                     = ["AzureServices"]
-    ip_rules                   = var.default_action == "Deny" ? concat(var.ip_rules, ["${chomp(data.http.myip.body)}"]) : var.ip_rules
+    ip_rules                   = concat(var.ip_rules, ["${chomp(data.http.myip.body)}"])
     virtual_network_subnet_ids = var.sa_subnets
     default_action             = var.default_action
   }
