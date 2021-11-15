@@ -141,7 +141,7 @@ variable "containers" {
 
 // Tables
 variable "tables" {
-  type = list(string)
+  type        = list(string)
   description = "List of Storage Tables"
   default     = []
 }
