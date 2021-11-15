@@ -138,3 +138,10 @@ variable "containers" {
   description = "List of Storage Containers"
   default     = []
 }
+
+// Tables
+variable "tables" {
+  type = list(string)
+  description = "List of Storage Tables"
+  default     = []
+}
