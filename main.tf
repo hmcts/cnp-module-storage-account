@@ -42,12 +42,19 @@ resource "azurerm_storage_account" "storage_account" {
       delete_retention_policy {
         days = 365
       }
-	  cors_rule {
-		allowed_headers = var.cors.allowed_headers
-		allowed_methods = var.cors.allowed_methods
-		allowed_origins = var.cors.allowed_origins
-		exposed_headers = var.cors.exposed_headers
-		max_age_in_seconds = var.cors.max_age_in_seconds
+	  dynamic cors_rule {
+		  for_each = var.cors_rules
+
+
+	  }
+	  dynamic cors_rule {
+		for_each = var.cors_rules
+		
+		allowed_headers = var.cors_rules.allowed_headers
+		allowed_methods = var.cors_rules.allowed_methods
+		allowed_origins = var.cors_rules.allowed_origins
+		exposed_headers = var.cors_rules.exposed_headers
+		max_age_in_seconds = var.cors_rules.max_age_in_seconds
 	}
     }
   }
