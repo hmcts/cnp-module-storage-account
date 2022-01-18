@@ -44,12 +44,13 @@ resource "azurerm_storage_account" "storage_account" {
       }
 	  dynamic cors_rule {
 		for_each = var.cors_rules
+
 		content {
-			allowed_headers = var.cors_rules.allowed_headers
-			allowed_methods = var.cors_rules.allowed_methods
-			allowed_origins = var.cors_rules.allowed_origins
-			exposed_headers = var.cors_rules.exposed_headers
-			max_age_in_seconds = var.cors_rules.max_age_in_seconds
+			allowed_headers = cors_rule.value["allowed_headers"]
+			allowed_methods = cors_rule.value["allowed_methods"]
+			allowed_origins = cors_rule.value["allowed_origins"]
+			exposed_headers = cors_rule.value["exposed_headers"]
+			max_age_in_seconds = cors_rule.value["max_age_in_seconds"]
 		}
 	}
     }
