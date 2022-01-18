@@ -58,8 +58,8 @@ variable "enable_https_traffic_only" {
 }
 
 variable "allow_blob_public_access" {
-	description = "(Optional) Allow or disallow public access to all blobs or containers in the storage account. Defaults to false."
-	default = "false"
+  description = "(Optional) Allow or disallow public access to all blobs or containers in the storage account. Defaults to false."
+  default     = "false"
 }
 
 variable "account_encryption_source" {
@@ -153,13 +153,13 @@ variable "tables" {
 
 // CORS
 variable "cors_rules" {
-	type = list(object({
-		allowed_headers = list(string)
-		allowed_methods = list(string)
-		allowed_origins = list(string)
-		exposed_headers = list(string)
-		max_age_in_seconds = number
-	}))
-	description = "(Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule"
-	default = []
+  type = list(object({
+    allowed_headers    = list(string)
+    allowed_methods    = list(string)
+    allowed_origins    = list(string)
+    exposed_headers    = list(string)
+    max_age_in_seconds = number
+  }))
+  description = "(Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule"
+  default     = []
 }

@@ -29,7 +29,7 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier               = var.access_tier
   enable_https_traffic_only = var.enable_https_traffic_only
   min_tls_version           = "TLS1_2"
-  allow_blob_public_access = var.allow_blob_public_access
+  allow_blob_public_access  = var.allow_blob_public_access
 
 
   dynamic "blob_properties" {
@@ -42,17 +42,17 @@ resource "azurerm_storage_account" "storage_account" {
       delete_retention_policy {
         days = 365
       }
-	  dynamic cors_rule {
-		for_each = var.cors_rules
+      dynamic "cors_rule" {
+        for_each = var.cors_rules
 
-		content {
-			allowed_headers = cors_rule.value["allowed_headers"]
-			allowed_methods = cors_rule.value["allowed_methods"]
-			allowed_origins = cors_rule.value["allowed_origins"]
-			exposed_headers = cors_rule.value["exposed_headers"]
-			max_age_in_seconds = cors_rule.value["max_age_in_seconds"]
-		}
-	}
+        content {
+          allowed_headers    = cors_rule.value["allowed_headers"]
+          allowed_methods    = cors_rule.value["allowed_methods"]
+          allowed_origins    = cors_rule.value["allowed_origins"]
+          exposed_headers    = cors_rule.value["exposed_headers"]
+          max_age_in_seconds = cors_rule.value["max_age_in_seconds"]
+        }
+      }
     }
   }
 
