@@ -28,8 +28,45 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type        = var.account_replication_type
   access_tier                     = var.access_tier
   enable_https_traffic_only       = var.enable_https_traffic_only
+  is_hns_enabled                  = true
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
+
+resource "azurerm_resource_group" "storage_account" {
+  name     = var.resource_group_name
+  location = var.location
+}
+
+ tags = {
+    environment  = "sandbox"
+    application  = "heritage"
+    businessArea = "cross-cutting"
+    builtFrom    = "terraform"
+  }
+}
+
+resource "azurerm_storage_container" "example" {
+  name                  = var.azurerm_storage_container_name
+  storage_account_name  = azurerm_storage_account.storage_account.name
+  container_access_type = var.container_access_type
+}
+
+# Workaround until azurerm_storage_account supports isSftpEnabled property
+# see https://github.com/hashicorp/terraform-provider-azurerm/issues/14736
+resource "azapi_update_resource" "example_enable_sftp" {
+  type        = "Microsoft.Storage/storageAccounts@2021-09-01"
+  resource_id = azurerm_storage_account.storage_account.id
+
+  body = jsonencode({
+    properties = {
+      isSftpEnabled = true
+    }
+  })
+
+  depends_on = [
+    azurerm_storage_container.example
+  ]
+}
 
 
   dynamic "blob_properties" {

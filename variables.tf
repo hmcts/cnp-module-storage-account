@@ -37,6 +37,11 @@ variable "access_tier" {
   default     = "Hot"
 }
 
+variable "container_access_type" {
+  default = "Private"
+  
+}
+
 variable "enable_blob_encryption" {
   description = "(Optional) Boolean flag which controls if Encryption Services are enabled for Blob storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information."
   default     = "true"
