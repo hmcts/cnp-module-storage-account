@@ -28,6 +28,8 @@ jobs:
           provider "azurerm" {
             features {}
           }
+          provider "azapi" {
+          }
           EOF
       - name: Terraform Init
         run: terraform init

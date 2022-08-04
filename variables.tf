@@ -165,6 +165,6 @@ variable "cors_rules" {
 }
 
 variable "enable_sftp" {
-  default = false
+  default     = false
   description = "(Optional) Enable SFTP access to Blob storage"
-  }
+}
