@@ -41,6 +41,10 @@ jobs:
           provider "azapi" {
           }
           EOF
+      - name: test
+        shell: bash
+        run: |
+        cat provider.tf
       - name: Terraform Init
         run: terraform init
 
