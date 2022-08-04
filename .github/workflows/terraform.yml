@@ -26,14 +26,14 @@ jobs:
         run: |
           cat << EOF > provider.tf
           terraform {
-              required_providers {
-                  azurerm = {
-                    source  = "hashicorp/azurerm"
-                  }
-                  azapi = {
-                    source = "azure/azapi"
-                  }
+            required_providers {
+              azurerm = {
+              source  = "hashicorp/azurerm"
               }
+              azapi = {
+                source = "azure/azapi"
+              }
+            }
           }
           provider "azurerm" {
             features {}
