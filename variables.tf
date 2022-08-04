@@ -163,3 +163,8 @@ variable "cors_rules" {
   description = "(Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule"
   default     = []
 }
+
+variable "enable_sftp" {
+  default = false
+  description = "(Optional) Enable SFTP access to Blob storage"
+  }

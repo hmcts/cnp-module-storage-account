@@ -29,6 +29,7 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier                     = var.access_tier
   enable_https_traffic_only       = var.enable_https_traffic_only
   min_tls_version                 = "TLS1_2"
+  is_hns_enabled                  =  var.enable_sftp?true:false
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
 
 
