@@ -1,8 +1,8 @@
 name: 'Terraform'
 
 on:
-  pull_request:
     branches:
+  pull_request:
       - master
 
 env:
@@ -30,15 +30,10 @@ jobs:
               azurerm = {
                 source = "hashicorp/azurerm"
               }
-              azapi = {
-                source = "azure/azapi"
-              }
             }
           }
           provider "azurerm" {
             features {}
-          }
-          provider "azapi" {
           }
           EOF
       - name: Terraform Init
