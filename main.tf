@@ -29,6 +29,8 @@ resource "azurerm_storage_account" "storage_account" {
   access_tier                     = var.access_tier
   enable_https_traffic_only       = var.enable_https_traffic_only
   min_tls_version                 = "TLS1_2"
+  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
+
 
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
