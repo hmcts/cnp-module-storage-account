@@ -57,11 +57,6 @@ variable "enable_https_traffic_only" {
   default     = "true"
 }
 
-variable "allow_nested_items_to_be_public" {
-  description = "(Optional) Allow or disallow public access to all blobs or containers in the storage account. Defaults to false."
-  default     = "false"
-}
-
 variable "account_encryption_source" {
   description = "(Optional) The Encryption Source for this Storage Account. Possible values are Microsoft.Keyvault and Microsoft.Storage. Defaults to Microsoft.Storage."
   default     = "Microsoft.Storage"
