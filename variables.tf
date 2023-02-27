@@ -59,7 +59,7 @@ variable "enable_https_traffic_only" {
 
 variable "enable_hns" {
   description = "(Optional) Boolean flag which controls if the hierarchical namespace is enabled for this storage account, required for SFTP support. See https://learn.microsoft.com/en-gb/azure/storage/blobs/data-lake-storage-namespace for more information."
-  default = "false"
+  default     = "false"
 }
 
 variable "enable_sftp" {
