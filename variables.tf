@@ -57,6 +57,16 @@ variable "enable_https_traffic_only" {
   default     = "true"
 }
 
+variable "enable_hns" {
+  description = "(Optional) Boolean flag which controls if the hierarchical namespace is enabled for this storage account, required for SFTP support. See https://learn.microsoft.com/en-gb/azure/storage/blobs/data-lake-storage-namespace for more information."
+  default     = "false"
+}
+
+variable "enable_sftp" {
+  description = "(Optional) Boolean flag which controls if SFTP functionality is enabled for this storage account, Requires `enable_hns` to be `true`. See https://learn.microsoft.com/en-us/azure/storage/blobs/secure-file-transfer-protocol-support for more information."
+  default     = "false"
+}
+
 variable "allow_nested_items_to_be_public" {
   description = "(Optional) Allow or disallow public access to all blobs or containers in the storage account. Defaults to false."
   default     = "false"
