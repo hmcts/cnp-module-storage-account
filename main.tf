@@ -63,13 +63,7 @@ resource "azurerm_storage_account" "storage_account" {
     default_action             = var.default_action
   }
 
-  tags = merge(var.common_tags,
-    tomap({
-      "Deployment Environment" = var.env,
-      "Team Contact"           = var.team_contact,
-      "Destroy Me"             = var.destroy_me
-    })
-  )
+  tags = var.common_tags
 }
 
 resource "azurerm_storage_management_policy" "storage-account-policy" {

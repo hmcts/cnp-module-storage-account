@@ -58,6 +58,8 @@ Example:
   ]
 ```
 
+Alternatively enable private endpoints with `private_endpoint_enabled = true`.
+
 ## Using this module with new subnet
 
 This module was created with assumption that all required subnets are already present in Azure prior to running it.

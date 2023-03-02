@@ -163,3 +163,17 @@ variable "cors_rules" {
   description = "(Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule"
   default     = []
 }
+
+variable "" {
+
+}
+
+variable "private_endpoint_subnet_id" {
+  description = "Subnet ID to attach private endpoint to - overrides the default subnet id"
+  default     = ""
+}
+
+variable "enable_private_endpoint" {
+  description = "Enable Private endpoint?"
+  default     = false
+}
