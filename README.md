@@ -104,6 +104,8 @@ module "this" {
   location                 = var.location
   account_kind             = var.account_kind
   account_replication_type = var.account_replication_type
+
+  private_endpoint_subnet_id = data.azurerm_subnet.private_endpoints.id
 }
 ```
 
