@@ -19,12 +19,12 @@ variable "location" {
 }
 
 variable "account_kind" {
-  description = "(Optional) Defines the Kind of account. Valid options are Storage, StorageV2 and BlobStorage. Changing this forces a new resource to be created. Defaults to Storage"
+  description = "Defines the Kind of account. Valid options are Storage, StorageV2 and BlobStorage. Changing this forces a new resource to be created."
 }
 
 variable "account_tier" {
-  description = "(Required) Defines the Tier to use for this storage account. Valid options are Standard and Premium. Changing this forces a new resource to be created"
-  default     = "Premium"
+  description = "Defines the Tier to use for this storage account. Valid options are Standard and Premium. Changing this forces a new resource to be created"
+  default     = "Standard"
 }
 
 variable "account_replication_type" {
@@ -75,7 +75,7 @@ variable "ip_rules" {
 
 variable "sa_subnets" {
   type        = list(string)
-  description = "(Required) List of subnet ID's which will have access to this storage account."
+  description = "(Optional) List of subnet ID's which will have access to this storage account."
   default     = []
 }
 
@@ -164,16 +164,7 @@ variable "cors_rules" {
   default     = []
 }
 
-variable "" {
-
-}
-
 variable "private_endpoint_subnet_id" {
   description = "Subnet ID to attach private endpoint to - overrides the default subnet id"
   default     = ""
-}
-
-variable "enable_private_endpoint" {
-  description = "Enable Private endpoint?"
-  default     = false
 }

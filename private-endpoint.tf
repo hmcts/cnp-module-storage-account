@@ -1,25 +1,12 @@
-locals {
-  use_default_subnet_id      = var.private_endpoint_subnet_id == "" ? true : false
-  private_endpoint_rg_name   = var.project == "sds" ? "ss-${var.env}-network-rg" : "${var.project}-${var.env}-network-rg"
-  private_endpoint_vnet_name = var.project == "sds" ? "ss-${var.env}-vnet" : "${var.project}-${var.env}-vnet"
-}
-
-data "azurerm_subnet" "private_endpoints" {
-  count    = var.enable_private_endpoint && local.use_default_subnet_id ? 1 : 0
-  provider = azurerm.private_endpoint
-
-  resource_group_name  = local.private_endpoint_rg_name
-  virtual_network_name = local.private_endpoint_vnet_name
-  name                 = "private-endpoints"
-}
-
+# TODO make a breaking change at some point to automatically default a subnet id like in:
+# https://github.com/hmcts/terraform-module-servicebus-namespace/blob/1b9bd99b936710ab63aeb89c167266f2ad0b09ba/private-endpoint.tf#L1-L15
 resource "azurerm_private_endpoint" "this" {
-  count = var.private_endpoint_enabled == true ? 1 : 0
+  count = var.private_endpoint_subnet_id != "" ? 1 : 0
 
   name                = local.storage_account_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  subnet_id           = local.use_default_subnet_id ? data.azurerm_subnet.private_endpoints[0].id : var.private_endpoint_subnet_id
+  subnet_id           = var.private_endpoint_subnet_id
 
   private_service_connection {
     name                           = local.storage_account_name
