@@ -168,3 +168,15 @@ variable "private_endpoint_subnet_id" {
   description = "Subnet ID to attach private endpoint to - overrides the default subnet id"
   default     = ""
 }
+
+variable "enable_change_feed" {
+  default = "false"
+}
+
+variable "immutable_enabled" {
+  default = "false"
+}
+
+variable "immutability_period" {
+  default = "1"
+}
