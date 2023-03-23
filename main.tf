@@ -46,13 +46,10 @@ resource "azurerm_storage_account" "storage_account" {
       change_feed_enabled = var.enable_change_feed
 
       container_delete_retention_policy {
-        days = 36
+        days = 40
       }
       delete_retention_policy {
         days = 365
-      }
-      restore_policy {
-        days = 35
       }
       dynamic "cors_rule" {
         for_each = var.cors_rules
