@@ -46,7 +46,7 @@ resource "azurerm_storage_account" "storage_account" {
       change_feed_enabled = var.enable_change_feed
 
       container_delete_retention_policy {
-        days = 35
+        days = 36
       }
       delete_retention_policy {
         days = 365
