@@ -30,14 +30,21 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only       = var.enable_https_traffic_only
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  sftp_enabled                    = var.enable_sftp
-  is_hns_enabled                  = var.enable_hns
 
-
+  dynamic "immutability_policy" {
+    for_each = var.immutable_enabled == true ? [1] : []
+    content {
+      allow_protected_append_writes = true
+      state                         = "Unlocked"
+      period_since_creation_in_days = var.immutability_period
+    }
+  }
   dynamic "blob_properties" {
     for_each = var.enable_data_protection == true ? [1] : []
     content {
-      versioning_enabled = true
+      versioning_enabled  = true
+      change_feed_enabled = var.enable_change_feed
+
       container_delete_retention_policy {
         days = 7
       }
@@ -65,13 +72,7 @@ resource "azurerm_storage_account" "storage_account" {
     default_action             = var.default_action
   }
 
-  tags = merge(var.common_tags,
-    tomap({
-      "Deployment Environment" = var.env,
-      "Team Contact"           = var.team_contact,
-      "Destroy Me"             = var.destroy_me
-    })
-  )
+  tags = var.common_tags
 }
 
 resource "azurerm_storage_management_policy" "storage-account-policy" {

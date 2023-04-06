@@ -19,12 +19,12 @@ variable "location" {
 }
 
 variable "account_kind" {
-  description = "(Optional) Defines the Kind of account. Valid options are Storage, StorageV2 and BlobStorage. Changing this forces a new resource to be created. Defaults to Storage"
+  description = "Defines the Kind of account. Valid options are Storage, StorageV2 and BlobStorage. Changing this forces a new resource to be created."
 }
 
 variable "account_tier" {
-  description = "(Required) Defines the Tier to use for this storage account. Valid options are Standard and Premium. Changing this forces a new resource to be created"
-  default     = "Premium"
+  description = "Defines the Tier to use for this storage account. Valid options are Standard and Premium. Changing this forces a new resource to be created"
+  default     = "Standard"
 }
 
 variable "account_replication_type" {
@@ -57,16 +57,6 @@ variable "enable_https_traffic_only" {
   default     = "true"
 }
 
-variable "enable_hns" {
-  description = "(Optional) Boolean flag which controls if the hierarchical namespace is enabled for this storage account, required for SFTP support. See https://learn.microsoft.com/en-gb/azure/storage/blobs/data-lake-storage-namespace for more information."
-  default     = "false"
-}
-
-variable "enable_sftp" {
-  description = "(Optional) Boolean flag which controls if SFTP functionality is enabled for this storage account, Requires `enable_hns` to be `true`. See https://learn.microsoft.com/en-us/azure/storage/blobs/secure-file-transfer-protocol-support for more information."
-  default     = "false"
-}
-
 variable "allow_nested_items_to_be_public" {
   description = "(Optional) Allow or disallow public access to all blobs or containers in the storage account. Defaults to false."
   default     = "false"
@@ -85,7 +75,7 @@ variable "ip_rules" {
 
 variable "sa_subnets" {
   type        = list(string)
-  description = "(Required) List of subnet ID's which will have access to this storage account."
+  description = "(Optional) List of subnet ID's which will have access to this storage account."
   default     = []
 }
 
@@ -172,4 +162,21 @@ variable "cors_rules" {
   }))
   description = "(Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule"
   default     = []
+}
+
+variable "private_endpoint_subnet_id" {
+  description = "Subnet ID to attach private endpoint to - overrides the default subnet id"
+  default     = ""
+}
+
+variable "enable_change_feed" {
+  default = "false"
+}
+
+variable "immutable_enabled" {
+  default = "false"
+}
+
+variable "immutability_period" {
+  default = "1"
 }

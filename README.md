@@ -8,15 +8,29 @@ The directories under `test/` provide different testing scenarios.  To use:
 
 ## How to use this module
 
-Example:
+Minimal example:
 
-```
-module "storage_account" {
+```terraform
+module "this" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account.git?ref=master"
   env                      = var.env
   storage_account_name     = var.storage_account_name
   resource_group_name      = var.resource_group_name
-  location                 = var.azurerm_location
+  location                 = var.location
+  account_kind             = var.account_kind
+  account_replication_type = var.account_replication_type
+}
+```
+
+More options:
+
+```terraform
+module "this" {
+  source                   = "git@github.com:hmcts/cnp-module-storage-account.git?ref=master"
+  env                      = var.env
+  storage_account_name     = var.storage_account_name
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
   account_kind             = var.account_kind
   account_tier             = var.account_tier
   account_replication_type = var.account_replication_type
@@ -30,7 +44,6 @@ module "storage_account" {
   role_assignments = [
     "Storage Blob Data Contributor"
   ]
-
 }
 ```
 
@@ -56,6 +69,54 @@ Example:
     "/subscriptions/<some_subscription_id>/resourcegroups/<some_rg>/providers/microsoft.network/virtualnetworks/<some_vnet>/subnets/test-subnet1",
     "/subscriptions/<some_subscription_id>/resourcegroups/<some_rg>/providers/microsoft.network/virtualnetworks/<some_vnet>/subnets/test-subnet2"
   ]
+```
+
+Alternatively enable private endpoints:
+
+```terraform
+locals {
+  private_endpoint_rg_name   = var.businessArea == "sds" ? "ss-${var.env}-network-rg" : "${var.businessArea}-${var.env}-network-rg"
+  private_endpoint_vnet_name = var.businessArea == "sds" ? "ss-${var.env}-vnet" : "${var.businessArea}-${var.env}-vnet"
+}
+
+# CFT only, on SDS remove this provider
+provider "azurerm" {
+  alias           = "private_endpoints"
+  subscription_id = var.aks_subscription_id
+  features {}
+  skip_provider_registration = true
+}
+
+data "azurerm_subnet" "private_endpoints" {
+  # CFT only you will need to provide an extra provider, uncomment the below line, on SDS remove this line and the next
+  # azurerm.private_endpoints
+
+  resource_group_name  = local.private_endpoint_rg_name
+  virtual_network_name = local.private_endpoint_vnet_name
+  name                 = "private-endpoints"
+}
+
+module "this" {
+  source                   = "git@github.com:hmcts/cnp-module-storage-account.git?ref=master"
+  env                      = var.env
+  storage_account_name     = var.storage_account_name
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
+  account_kind             = var.account_kind
+  account_replication_type = var.account_replication_type
+
+  private_endpoint_subnet_id = data.azurerm_subnet.private_endpoints.id
+}
+```
+
+variables.tf:
+
+```terraform
+variable "businessArea" {
+  default = "" # sds or cft, fill this in
+}
+
+variable "aks_subscription_id" {} # supplied by the Jenkins library and only needed on CFT
 ```
 
 ## Using this module with new subnet
