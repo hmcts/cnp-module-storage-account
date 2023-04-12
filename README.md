@@ -164,24 +164,23 @@ sa_policy = [
 
 ## Enabling SFTP Connectivity
 
-SFTP connectivity for Azure storage acount is only supported on certain SKUs. Ensure `account_kind` is set to either `StorageV2` or `BlockBlobStorage`. Additionally, hierarchical namespace (HNS) must be enabled on the storage account by setting `enable_hns` to `true`. Finally, SFTP can be enabled by setting `enable_sftp` to true:
+SFTP connectivity for Azure storage acount is only supported on certain SKUs. 
+
+Ensure:
+- `account_kind` is set to either `StorageV2` or `BlockBlobStorage`.
+- Hierarchical namespace (HNS) is enabled on the storage account by setting `enable_hns` to `true`. 
+- `enable_sftp` is set to true
 
 ```terraform
 module "sftp_storage" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account.git?ref=master"
-  env                      = var.env
-  storage_account_name     = var.storage_account_name
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
+  
+  ...
+  
   account_kind             = "StorageV2"
-  account_tier             = var.account_tier
-  account_replication_type = var.account_replication_type
-  access_tier              = var.access_tier
-
   enable_hns               = true
   enable_sftp              = true
 }
-```
 
 [Azure Documentation on Storage Account SFTP](https://learn.microsoft.com/en-us/azure/storage/blobs/secure-file-transfer-protocol-support-how-to?tabs=azure-portal)
 
