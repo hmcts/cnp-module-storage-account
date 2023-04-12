@@ -162,9 +162,13 @@ sa_policy = [
   ]
 ```
 
-## Enabling SFTP connectivity
+## Enabling SFTP Connectivity
 
 SFTP connectivity for Azure storage acount is only supported on certain SKUs. Ensure `account_kind` is set to either `StorageV2` or `BlockBlobStorage`. Additionally, hierarchical namespace (HNS) must be enabled on the storage account by setting `enable_hns` to `true`. Finally, SFTP can be enabled by setting `enable_sftp` to true:
+
+[Azure Documentation on Storage Account SFTP](https://learn.microsoft.com/en-us/azure/storage/blobs/secure-file-transfer-protocol-support-how-to?tabs=azure-portal)
+
+Example:
 
 ```terraform
 module "sftp_storage" {
@@ -177,8 +181,15 @@ module "sftp_storage" {
   account_tier             = var.account_tier
   account_replication_type = var.account_replication_type
   access_tier              = var.access_tier
-  
+
   enable_hns               = true
   enable_sftp              = true
 }
 ```
+
+### Creating Local Users
+
+To actually connect via SFTP, you will require a local user for the storage account, as well as an SSH keypair. `azurerm_storage_account_local_user` has been added to facilitate management of local users via terraform.
+
+(Terraform Documentation on Storage Account Local Users)[https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_local_user]
+
