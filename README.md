@@ -181,6 +181,7 @@ module "sftp_storage" {
   enable_hns               = true
   enable_sftp              = true
 }
+```
 
 [Azure Documentation on Storage Account SFTP](https://learn.microsoft.com/en-us/azure/storage/blobs/secure-file-transfer-protocol-support-how-to?tabs=azure-portal)
 
