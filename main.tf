@@ -30,6 +30,8 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only       = var.enable_https_traffic_only
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
+  sftp_enabled                    = var.enable_sftp
+  is_hns_enabled                  = var.enable_hns
 
   dynamic "immutability_policy" {
     for_each = var.immutable_enabled == true ? [1] : []
