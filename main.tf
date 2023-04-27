@@ -53,6 +53,9 @@ resource "azurerm_storage_account" "storage_account" {
       delete_retention_policy {
         days = 365
       }
+      restore_policy {
+        days = 364
+      }
       dynamic "cors_rule" {
         for_each = var.cors_rules
 
