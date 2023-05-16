@@ -54,7 +54,7 @@ resource "azurerm_storage_account" "storage_account" {
         days = 365
       }
       restore_policy {
-        days = 364
+        days = 1
       }
       dynamic "cors_rule" {
         for_each = var.cors_rules
