@@ -190,3 +190,7 @@ variable "immutable_enabled" {
 variable "immutability_period" {
   default = "1"
 }
+
+variable "restore_policy_days" {
+  default = "1"
+}
