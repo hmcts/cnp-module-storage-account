@@ -180,7 +180,7 @@ variable "private_endpoint_subnet_id" {
 }
 
 variable "enable_change_feed" {
-  default = "false"
+  default = "true"
 }
 
 variable "immutable_enabled" {
