@@ -55,7 +55,9 @@ resource "azurerm_storage_account" "storage_account" {
       }
       dynamic "restore_policy" {
         for_each = var.restore_policy_days != null ? [1] : []
-        days     = var.restore_policy_days
+        content {
+          days = var.restore_policy_days
+        }
       }
       dynamic "cors_rule" {
         for_each = var.cors_rules
