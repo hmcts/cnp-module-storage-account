@@ -54,7 +54,7 @@ resource "azurerm_storage_account" "storage_account" {
         days = 365
       }
       restore_policy {
-        days = try(var.restore_policy_days, null)
+        days = var.restore_policy_days != null ? var.restore_policy_days : null
       }
       dynamic "cors_rule" {
         for_each = var.cors_rules
