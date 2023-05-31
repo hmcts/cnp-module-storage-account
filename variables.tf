@@ -192,5 +192,5 @@ variable "immutability_period" {
 }
 
 variable "restore_policy_days" {
-  default = "0"
+  default = "1"
 }
