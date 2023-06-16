@@ -70,14 +70,17 @@ resource "azurerm_storage_account" "storage_account" {
     }
   }
 
-  network_rules {
-    bypass                     = ["AzureServices"]
-    ip_rules                   = var.ip_rules
-    virtual_network_subnet_ids = var.sa_subnets
-    default_action             = var.default_action
-  }
-
   tags = var.common_tags
+}
+
+resource "azurerm_storage_account_network_rules" "rules" {
+  storage_account_id = azurerm_storage_account.storage_account.id
+
+  default_action             = var.default_action
+  ip_rules                   = var.ip_rules
+  virtual_network_subnet_ids = var.sa_subnets
+
+  depends_on = [azurerm_storage_container.container, azurerm_storage_table.tables]
 }
 
 resource "azurerm_storage_management_policy" "storage-account-policy" {
