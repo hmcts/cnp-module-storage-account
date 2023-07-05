@@ -67,6 +67,11 @@ variable "enable_hns" {
   default     = false
 }
 
+variable "enable_nfs" {
+  description = "(Optional) Boolean flag which controls if NFS is enabled for this storage account, Requires `enable_nfs` to be `true`."
+  default     = false
+}
+
 variable "enable_sftp" {
   description = "(Optional) Boolean flag which controls if SFTP functionality is enabled for this storage account, Requires `enable_hns` to be `true`. See https://learn.microsoft.com/en-us/azure/storage/blobs/secure-file-transfer-protocol-support for more information."
   default     = false
