@@ -188,6 +188,12 @@ variable "enable_change_feed" {
   default = "false"
 }
 
+variable "enable_versioning" {
+  default     = true
+  description = "Whether to enable versioning when data protection has been enabled. Defaults to true."
+  type        = bool
+}
+
 variable "immutable_enabled" {
   default = "false"
 }
