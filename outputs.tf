@@ -91,3 +91,8 @@ output "storageaccount_primary_blob_connection_string" {
   sensitive   = true
 } */
 
+output "storageaccount_primary_dfs_endpoint" {
+  value       = azurerm_storage_account.storage_account.primary_dfs_endpoint
+  description = "The endpoint URL for DFS in the primary location."
+}
+
