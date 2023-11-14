@@ -222,6 +222,6 @@ variable "pim_roles" {
   type = map(object({
     principal_id = string
   }))
-  default     = null
+  default     = {}
   description = "{ 'Role name' = { principal_id = 'principal_id' } }, only certain roles are supported"
 }
