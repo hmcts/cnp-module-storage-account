@@ -191,3 +191,90 @@ To actually connect via SFTP, you will require a local user for the storage acco
 
 [Terraform Documentation on Storage Account Local Users](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_local_user)
 
+<!-- BEGIN_TF_DOCS -->
+
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azapi"></a> [azapi](#provider\_azapi) | n/a |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azapi_update_resource.defender_settings](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/update_resource) | resource |
+| [azurerm_private_endpoint.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
+| [azurerm_role_assignment.storage-account-role-assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
+| [azurerm_storage_account.storage_account](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_storage_container.container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_storage_management_policy.storage-account-policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_management_policy) | resource |
+| [azurerm_storage_table.tables](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
+| [random_string.storage_account_random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_access_tier"></a> [access\_tier](#input\_access\_tier) | (Optional) Defines the access tier for BlobStorage and StorageV2 accounts. Valid options are Hot and Cold, defaults to Hot. | `string` | `"Hot"` | no |
+| <a name="input_account_encryption_source"></a> [account\_encryption\_source](#input\_account\_encryption\_source) | (Optional) The Encryption Source for this Storage Account. Possible values are Microsoft.Keyvault and Microsoft.Storage. Defaults to Microsoft.Storage. | `string` | `"Microsoft.Storage"` | no |
+| <a name="input_account_kind"></a> [account\_kind](#input\_account\_kind) | Defines the Kind of account. Valid options are Storage, StorageV2 and BlobStorage. Changing this forces a new resource to be created. | `any` | n/a | yes |
+| <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | (Required) Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS and ZRS. | `string` | `"LRS"` | no |
+| <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | Defines the Tier to use for this storage account. Valid options are Standard and Premium. Changing this forces a new resource to be created | `string` | `"Standard"` | no |
+| <a name="input_allow_nested_items_to_be_public"></a> [allow\_nested\_items\_to\_be\_public](#input\_allow\_nested\_items\_to\_be\_public) | (Optional) Allow or disallow public access to all blobs or containers in the storage account. Defaults to false. | `string` | `"false"` | no |
+| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | n/a | `map(string)` | <pre>{<br>  "Team Name": "pleaseTagMe"<br>}</pre> | no |
+| <a name="input_containers"></a> [containers](#input\_containers) | List of Storage Containers | <pre>list(object({<br>    name        = string<br>    access_type = string<br>  }))</pre> | `[]` | no |
+| <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | (Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule | <pre>list(object({<br>    allowed_headers    = list(string)<br>    allowed_methods    = list(string)<br>    allowed_origins    = list(string)<br>    exposed_headers    = list(string)<br>    max_age_in_seconds = number<br>  }))</pre> | `[]` | no |
+| <a name="input_default_action"></a> [default\_action](#input\_default\_action) | (Optional) Network rules default action | `string` | `"Deny"` | no |
+| <a name="input_defender_enabled"></a> [defender\_enabled](#input\_defender\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_defender_mailware_scanning_cap_gb_per_month"></a> [defender\_mailware\_scanning\_cap\_gb\_per\_month](#input\_defender\_mailware\_scanning\_cap\_gb\_per\_month) | n/a | `number` | `5000` | no |
+| <a name="input_defender_malware_scanning_enabled"></a> [defender\_malware\_scanning\_enabled](#input\_defender\_malware\_scanning\_enabled) | n/a | `bool` | `true` | no |
+| <a name="input_defender_override_subscription_level_settings"></a> [defender\_override\_subscription\_level\_settings](#input\_defender\_override\_subscription\_level\_settings) | n/a | `bool` | `true` | no |
+| <a name="input_defender_sensitive_data_discovery_enabled"></a> [defender\_sensitive\_data\_discovery\_enabled](#input\_defender\_sensitive\_data\_discovery\_enabled) | n/a | `bool` | `true` | no |
+| <a name="input_destroy_me"></a> [destroy\_me](#input\_destroy\_me) | Here be dragons! In the future if this is set to Yes then automation will delete this resource on a schedule. Please set to No unless you know what you are doing | `string` | `"No"` | no |
+| <a name="input_enable_blob_encryption"></a> [enable\_blob\_encryption](#input\_enable\_blob\_encryption) | (Optional) Boolean flag which controls if Encryption Services are enabled for Blob storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information. | `string` | `"true"` | no |
+| <a name="input_enable_change_feed"></a> [enable\_change\_feed](#input\_enable\_change\_feed) | n/a | `string` | `"false"` | no |
+| <a name="input_enable_data_protection"></a> [enable\_data\_protection](#input\_enable\_data\_protection) | (Optional) Boolean flag which controls if Data Protection are enabled for Blob storage, see https://docs.microsoft.com/en-us/azure/storage/blobs/versioning-overview for more information. | `string` | `"false"` | no |
+| <a name="input_enable_file_encryption"></a> [enable\_file\_encryption](#input\_enable\_file\_encryption) | (Optional) Boolean flag which controls if Encryption Services are enabled for File storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information. | `string` | `"true"` | no |
+| <a name="input_enable_hns"></a> [enable\_hns](#input\_enable\_hns) | (Optional) Boolean flag which controls if the hierarchical namespace is enabled for this storage account, required for SFTP support. See https://learn.microsoft.com/en-gb/azure/storage/blobs/data-lake-storage-namespace for more information. | `bool` | `false` | no |
+| <a name="input_enable_https_traffic_only"></a> [enable\_https\_traffic\_only](#input\_enable\_https\_traffic\_only) | (Optional) Boolean flag which forces HTTPS if enabled, see https://docs.microsoft.com/en-us/azure/storage/storage-require-secure-transfer/ for more information. | `string` | `"true"` | no |
+| <a name="input_enable_nfs"></a> [enable\_nfs](#input\_enable\_nfs) | (Optional) Boolean flag which controls if NFS is enabled for this storage account, Requires `enable_nfs` to be `true`. | `bool` | `false` | no |
+| <a name="input_enable_sftp"></a> [enable\_sftp](#input\_enable\_sftp) | (Optional) Boolean flag which controls if SFTP functionality is enabled for this storage account, Requires `enable_hns` to be `true`. See https://learn.microsoft.com/en-us/azure/storage/blobs/secure-file-transfer-protocol-support for more information. | `bool` | `false` | no |
+| <a name="input_env"></a> [env](#input\_env) | The deployment environment (sandbox, aat, prod etc..) | `string` | n/a | yes |
+| <a name="input_immutability_period"></a> [immutability\_period](#input\_immutability\_period) | n/a | `string` | `"1"` | no |
+| <a name="input_immutable_enabled"></a> [immutable\_enabled](#input\_immutable\_enabled) | n/a | `string` | `"false"` | no |
+| <a name="input_ip_rules"></a> [ip\_rules](#input\_ip\_rules) | (Optional) List of public IP addresses which will have access to storage account. | `list(string)` | `[]` | no |
+| <a name="input_location"></a> [location](#input\_location) | (Required) Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created. | `string` | `"uksouth"` | no |
+| <a name="input_managed_identity_object_id"></a> [managed\_identity\_object\_id](#input\_managed\_identity\_object\_id) | (Optional) Object Id for a Managed Identity to assign roles to, scoped to this storage account. | `string` | `""` | no |
+| <a name="input_policy"></a> [policy](#input\_policy) | Storage Account Managment Policy | <pre>list(object({<br>    name = string<br>    filters = object({<br>      prefix_match = list(string)<br>      blob_types   = list(string)<br>    })<br>    actions = object({<br>      version_delete_after_days_since_creation = number<br>    })<br>  }))</pre> | `[]` | no |
+| <a name="input_private_endpoint_subnet_id"></a> [private\_endpoint\_subnet\_id](#input\_private\_endpoint\_subnet\_id) | Subnet ID to attach private endpoint to - overrides the default subnet id | `string` | `""` | no |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | This is the prefix your resource group name will have for your shared infrastructure | `string` | n/a | yes |
+| <a name="input_restore_policy_days"></a> [restore\_policy\_days](#input\_restore\_policy\_days) | n/a | `any` | `null` | no |
+| <a name="input_role_assignments"></a> [role\_assignments](#input\_role\_assignments) | (Optional) List of roles to assign to the provided Managed Identity, scoped to this storage account. | `list(string)` | `[]` | no |
+| <a name="input_sa_subnets"></a> [sa\_subnets](#input\_sa\_subnets) | (Optional) List of subnet ID's which will have access to this storage account. | `list(string)` | `[]` | no |
+| <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | (Required) Specifies the name of the storage account. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group. | `any` | n/a | yes |
+| <a name="input_tables"></a> [tables](#input\_tables) | List of Storage Tables | `list(string)` | `[]` | no |
+| <a name="input_team_contact"></a> [team\_contact](#input\_team\_contact) | The name of your Slack channel people can use to contact your team about your infrastructure | `string` | `"#Cloud-Native"` | no |
+| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | The name of your team | `string` | `"CNP (Contino)"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_storageaccount_id"></a> [storageaccount\_id](#output\_storageaccount\_id) | The storage account Resource ID. |
+| <a name="output_storageaccount_name"></a> [storageaccount\_name](#output\_storageaccount\_name) | The storage account name. |
+| <a name="output_storageaccount_primary_access_key"></a> [storageaccount\_primary\_access\_key](#output\_storageaccount\_primary\_access\_key) | The primary access key for the storage account. |
+| <a name="output_storageaccount_primary_blob_connection_string"></a> [storageaccount\_primary\_blob\_connection\_string](#output\_storageaccount\_primary\_blob\_connection\_string) | The connection string associated with the primary blob location. |
+| <a name="output_storageaccount_primary_blob_endpoint"></a> [storageaccount\_primary\_blob\_endpoint](#output\_storageaccount\_primary\_blob\_endpoint) | The endpoint URL for blob storage in the primary location. |
+| <a name="output_storageaccount_primary_connection_string"></a> [storageaccount\_primary\_connection\_string](#output\_storageaccount\_primary\_connection\_string) | The connection string associated with the primary location. |
+| <a name="output_storageaccount_primary_file_endpoint"></a> [storageaccount\_primary\_file\_endpoint](#output\_storageaccount\_primary\_file\_endpoint) | The endpoint URL for file storage in the primary location. |
+| <a name="output_storageaccount_primary_location"></a> [storageaccount\_primary\_location](#output\_storageaccount\_primary\_location) | The primary location of the storage account. |
+| <a name="output_storageaccount_primary_queue_endpoint"></a> [storageaccount\_primary\_queue\_endpoint](#output\_storageaccount\_primary\_queue\_endpoint) | The endpoint URL for queue storage in the primary location. |
+| <a name="output_storageaccount_primary_table_endpoint"></a> [storageaccount\_primary\_table\_endpoint](#output\_storageaccount\_primary\_table\_endpoint) | The endpoint URL for table storage in the primary location. |
+| <a name="output_storageaccount_secondary_access_key"></a> [storageaccount\_secondary\_access\_key](#output\_storageaccount\_secondary\_access\_key) | The secondary access key for the storage account. |
+| <a name="output_storageaccount_secondary_connection_string"></a> [storageaccount\_secondary\_connection\_string](#output\_storageaccount\_secondary\_connection\_string) | The connection string associated with the secondary location. |
+| <a name="output_storageaccount_secondary_location"></a> [storageaccount\_secondary\_location](#output\_storageaccount\_secondary\_location) | The secondary location of the storage account. |
+<!-- END_TF_DOCS -->
