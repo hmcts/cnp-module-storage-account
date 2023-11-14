@@ -110,27 +110,9 @@ variable "role_assignments" {
   default     = []
 }
 
-//TAG SPECIFIC VARIABLES
-variable "team_name" {
-  description = "The name of your team"
-  default     = "CNP (Contino)"
-}
-
-variable "team_contact" {
-  description = "The name of your Slack channel people can use to contact your team about your infrastructure"
-  default     = "#Cloud-Native"
-}
-
-variable "destroy_me" {
-  description = "Here be dragons! In the future if this is set to Yes then automation will delete this resource on a schedule. Please set to No unless you know what you are doing"
-  default     = "No"
-}
-
+// TAG SPECIFIC VARIABLES
 variable "common_tags" {
   type = map(string)
-  default = {
-    "Team Name" = "pleaseTagMe"
-  }
 }
 
 //Management Lifecycle
@@ -204,4 +186,32 @@ variable "immutability_period" {
 
 variable "restore_policy_days" {
   default = null
+}
+
+
+// Defender for cloud
+
+variable "defender_enabled" {
+  default     = false
+  description = "Enable Defender for Cloud, it costs $10per month / storage account and $0.15/GB scanned for On-Upload Malware Scanning, enable with caution"
+}
+
+variable "defender_malware_scanning_enabled" {
+  default     = true
+  description = "Enables On-Upload Malware Scanning"
+}
+
+variable "defender_malware_scanning_cap_gb_per_month" {
+  default     = 5000
+  description = "Maximum amount of data scanned per month in GB, it costs $0.15/GB scanned"
+}
+
+variable "defender_sensitive_data_discovery_enabled" {
+  default     = true
+  description = "Enables Sensitive Data Discovery"
+}
+
+variable "defender_override_subscription_level_settings" {
+  default     = true
+  description = "Whether to override subscription level settings"
 }
