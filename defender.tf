@@ -8,7 +8,7 @@ resource "azapi_update_resource" "defender_settings" {
       malwareScanning = {
         onUpload = {
           isEnabled     = var.defender_enabled == false ? false : var.defender_malware_scanning_enabled
-          capGBPerMonth = var.defender_enabled == false ? -1 : var.defender_mailware_scanning_cap_gb_per_month
+          capGBPerMonth = var.defender_enabled == false ? -1 : var.defender_malware_scanning_cap_gb_per_month
         }
       }
       sensitiveDataDiscovery = {

@@ -195,7 +195,7 @@ variable "defender_malware_scanning_enabled" {
   description = "Enables On-Upload Malware Scanning"
 }
 
-variable "defender_mailware_scanning_cap_gb_per_month" {
+variable "defender_malware_scanning_cap_gb_per_month" {
   default     = 5000
   description = "Maximum amount of data scanned per month in GB, it costs $0.15/GB scanned"
 }

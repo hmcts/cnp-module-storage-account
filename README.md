@@ -225,16 +225,16 @@ To actually connect via SFTP, you will require a local user for the storage acco
 | <a name="input_account_replication_type"></a> [account\_replication\_type](#input\_account\_replication\_type) | (Required) Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS and ZRS. | `string` | `"LRS"` | no |
 | <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | Defines the Tier to use for this storage account. Valid options are Standard and Premium. Changing this forces a new resource to be created | `string` | `"Standard"` | no |
 | <a name="input_allow_nested_items_to_be_public"></a> [allow\_nested\_items\_to\_be\_public](#input\_allow\_nested\_items\_to\_be\_public) | (Optional) Allow or disallow public access to all blobs or containers in the storage account. Defaults to false. | `string` | `"false"` | no |
-| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | n/a | `map(string)` | <pre>{<br>  "Team Name": "pleaseTagMe"<br>}</pre> | no |
+| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | TAG SPECIFIC VARIABLES | `map(string)` | n/a | yes |
 | <a name="input_containers"></a> [containers](#input\_containers) | List of Storage Containers | <pre>list(object({<br>    name        = string<br>    access_type = string<br>  }))</pre> | `[]` | no |
 | <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | (Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule | <pre>list(object({<br>    allowed_headers    = list(string)<br>    allowed_methods    = list(string)<br>    allowed_origins    = list(string)<br>    exposed_headers    = list(string)<br>    max_age_in_seconds = number<br>  }))</pre> | `[]` | no |
 | <a name="input_default_action"></a> [default\_action](#input\_default\_action) | (Optional) Network rules default action | `string` | `"Deny"` | no |
-| <a name="input_defender_enabled"></a> [defender\_enabled](#input\_defender\_enabled) | n/a | `bool` | `false` | no |
-| <a name="input_defender_mailware_scanning_cap_gb_per_month"></a> [defender\_mailware\_scanning\_cap\_gb\_per\_month](#input\_defender\_mailware\_scanning\_cap\_gb\_per\_month) | n/a | `number` | `5000` | no |
-| <a name="input_defender_malware_scanning_enabled"></a> [defender\_malware\_scanning\_enabled](#input\_defender\_malware\_scanning\_enabled) | n/a | `bool` | `true` | no |
-| <a name="input_defender_override_subscription_level_settings"></a> [defender\_override\_subscription\_level\_settings](#input\_defender\_override\_subscription\_level\_settings) | n/a | `bool` | `true` | no |
-| <a name="input_defender_sensitive_data_discovery_enabled"></a> [defender\_sensitive\_data\_discovery\_enabled](#input\_defender\_sensitive\_data\_discovery\_enabled) | n/a | `bool` | `true` | no |
-| <a name="input_destroy_me"></a> [destroy\_me](#input\_destroy\_me) | Here be dragons! In the future if this is set to Yes then automation will delete this resource on a schedule. Please set to No unless you know what you are doing | `string` | `"No"` | no |
+| <a name="input_defender_enabled"></a> [defender\_enabled](#input\_defender\_enabled) | Enable Defender for Cloud, it costs $10per month / storage account and $0.15/GB scanned for On-Upload Malware Scanning, enable with caution | `bool` | `false` | no |
+| <a name="input_defender_malware_scanning_cap_gb_per_month"></a> [defender\_malware\_scanning\_cap\_gb\_per\_month](#input\_defender\_malware\_scanning\_cap\_gb\_per\_month) | Maximum amount of data scanned per month in GB, it costs $0.15/GB scanned | `number` | `5000` | no |
+| <a name="input_defender_malware_scanning_enabled"></a> [defender\_malware\_scanning\_enabled](#input\_defender\_malware\_scanning\_enabled) | Enables On-Upload Malware Scanning | `bool` | `true` | no |
+| <a name="input_defender_override_subscription_level_settings"></a> [defender\_override\_subscription\_level\_settings](#input\_defender\_override\_subscription\_level\_settings) | Whether to override subscription level settings | `bool` | `true` | no |
+| <a name="input_defender_sensitive_data_discovery_enabled"></a> [defender\_sensitive\_data\_discovery\_enabled](#input\_defender\_sensitive\_data\_discovery\_enabled) | Enables Sensitive Data Discovery | `bool` | `true` | no |
+| <a name="input_destroy_me"></a> [destroy\_me](#input\_destroy\_me) | Unused, do not add to your configuration | `any` | `null` | no |
 | <a name="input_enable_blob_encryption"></a> [enable\_blob\_encryption](#input\_enable\_blob\_encryption) | (Optional) Boolean flag which controls if Encryption Services are enabled for Blob storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information. | `string` | `"true"` | no |
 | <a name="input_enable_change_feed"></a> [enable\_change\_feed](#input\_enable\_change\_feed) | n/a | `string` | `"false"` | no |
 | <a name="input_enable_data_protection"></a> [enable\_data\_protection](#input\_enable\_data\_protection) | (Optional) Boolean flag which controls if Data Protection are enabled for Blob storage, see https://docs.microsoft.com/en-us/azure/storage/blobs/versioning-overview for more information. | `string` | `"false"` | no |
@@ -257,8 +257,7 @@ To actually connect via SFTP, you will require a local user for the storage acco
 | <a name="input_sa_subnets"></a> [sa\_subnets](#input\_sa\_subnets) | (Optional) List of subnet ID's which will have access to this storage account. | `list(string)` | `[]` | no |
 | <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | (Required) Specifies the name of the storage account. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group. | `any` | n/a | yes |
 | <a name="input_tables"></a> [tables](#input\_tables) | List of Storage Tables | `list(string)` | `[]` | no |
-| <a name="input_team_contact"></a> [team\_contact](#input\_team\_contact) | The name of your Slack channel people can use to contact your team about your infrastructure | `string` | `"#Cloud-Native"` | no |
-| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | The name of your team | `string` | `"CNP (Contino)"` | no |
+| <a name="input_team_contact"></a> [team\_contact](#input\_team\_contact) | Unused, do not add to your configuration | `any` | `null` | no |
 
 ## Outputs
 
