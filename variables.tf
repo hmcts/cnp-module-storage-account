@@ -215,3 +215,13 @@ variable "defender_override_subscription_level_settings" {
   default     = true
   description = "Whether to override subscription level settings"
 }
+
+// PIM
+
+variable "pim_roles" {
+  type = map(object({
+    principal_id = string
+  }))
+  default = null
+  description = "{ 'Role name' = { principal_id = 'principal_id' } }, only certain roles are supported"
+}

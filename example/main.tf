@@ -21,6 +21,8 @@ data "azurerm_subnet" "private_endpoints" {
   name                 = "private-endpoints"
 }
 
+data "azurerm_client_config" "this" {}
+
 module "this" {
   source                     = "../"
   env                        = var.env
