@@ -201,12 +201,14 @@ To actually connect via SFTP, you will require a local user for the storage acco
 | <a name="provider_azapi"></a> [azapi](#provider\_azapi) | n/a |
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
 | [azapi_update_resource.defender_settings](https://registry.terraform.io/providers/Azure/azapi/latest/docs/resources/update_resource) | resource |
+| [azurerm_pim_eligible_role_assignment.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/pim_eligible_role_assignment) | resource |
 | [azurerm_private_endpoint.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/private_endpoint) | resource |
 | [azurerm_role_assignment.storage-account-role-assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
 | [azurerm_storage_account.storage_account](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
@@ -214,6 +216,11 @@ To actually connect via SFTP, you will require a local user for the storage acco
 | [azurerm_storage_management_policy.storage-account-policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_management_policy) | resource |
 | [azurerm_storage_table.tables](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
 | [random_string.storage_account_random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
+| [time_rotating.rotate](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/rotating) | resource |
+| [time_static.pim_expiry](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/static) | resource |
+| [time_static.pim_start](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/static) | resource |
+| [azurerm_role_definition.role_name](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/role_definition) | data source |
+| [azurerm_subscription.primary](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 
 ## Inputs
 
@@ -249,6 +256,7 @@ To actually connect via SFTP, you will require a local user for the storage acco
 | <a name="input_ip_rules"></a> [ip\_rules](#input\_ip\_rules) | (Optional) List of public IP addresses which will have access to storage account. | `list(string)` | `[]` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created. | `string` | `"uksouth"` | no |
 | <a name="input_managed_identity_object_id"></a> [managed\_identity\_object\_id](#input\_managed\_identity\_object\_id) | (Optional) Object Id for a Managed Identity to assign roles to, scoped to this storage account. | `string` | `""` | no |
+| <a name="input_pim_roles"></a> [pim\_roles](#input\_pim\_roles) | { 'Role name' = { principal\_id = 'principal\_id' } }, only certain roles are supported | <pre>map(object({<br>    principal_id = string<br>  }))</pre> | `null` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | Storage Account Managment Policy | <pre>list(object({<br>    name = string<br>    filters = object({<br>      prefix_match = list(string)<br>      blob_types   = list(string)<br>    })<br>    actions = object({<br>      version_delete_after_days_since_creation = number<br>    })<br>  }))</pre> | `[]` | no |
 | <a name="input_private_endpoint_subnet_id"></a> [private\_endpoint\_subnet\_id](#input\_private\_endpoint\_subnet\_id) | Subnet ID to attach private endpoint to - overrides the default subnet id | `string` | `""` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | This is the prefix your resource group name will have for your shared infrastructure | `string` | n/a | yes |
