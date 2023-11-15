@@ -191,6 +191,38 @@ To actually connect via SFTP, you will require a local user for the storage acco
 
 [Terraform Documentation on Storage Account Local Users](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_local_user)
 
+## Privileged identity management
+
+Privileged identity management (PIM) can we used in limited cases where people need access to the storage account.
+For access to production data they should be assigned to a group that only contains members with Security Clearance (SC).
+Create a new group for it in [hmcts/devops-azure-ad](https://github.com/hmcts/devops-azure-ad/blob/master/users/groups.yml).
+
+Example configuration:
+
+```terraform
+data "azuread_group" "sc_group" {
+  display_name     = "DTS my team SC"
+  security_enabled = true
+}
+
+module "this" {
+  source                     = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  env                          = var.env
+  ...
+
+  # only enabled on prod
+  pim_roles = var.env != prod ? {} : {
+    "Storage Blob Delegator" = {
+      principal_id = data.sc_group.object_id
+    }
+
+    "Storage Blob Data Reader" = {
+      principal_id = data.sc_group.object_id
+    }
+  }
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 
 
