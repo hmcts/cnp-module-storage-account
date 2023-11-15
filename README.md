@@ -206,8 +206,8 @@ data "azuread_group" "sc_group" {
 }
 
 module "this" {
-  source                     = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
-  env                          = var.env
+  source    = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  env        = var.env
   ...
 
   # only enabled on prod
