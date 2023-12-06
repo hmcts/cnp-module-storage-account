@@ -53,6 +53,7 @@ resource "azurerm_storage_account" "storage_account" {
       }
       delete_retention_policy {
         days = var.env == "sbox" ? 7 : var.env == "stg" || var.env == "prod" ? 14 : null
+        
       }
       dynamic "restore_policy" {
         for_each = var.restore_policy_days != null ? [1] : []
