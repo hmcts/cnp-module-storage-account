@@ -229,5 +229,5 @@ variable "pim_roles" {
 variable "retention_period" {
   type        = number
   default     = 365
-  description = "Enables soft delete to be configurable for each env"
+  description = "(Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365"
 }
