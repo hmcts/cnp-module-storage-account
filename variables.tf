@@ -229,5 +229,5 @@ variable "pim_roles" {
 variable "retention_period" {
   type        = number
   default     = 365
-  description = "Enables soft delete to be configurable to each env"
+  description = "Enables soft delete to be configurable for each env"
 }
