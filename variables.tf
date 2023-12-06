@@ -225,3 +225,9 @@ variable "pim_roles" {
   default     = {}
   description = "{ 'Role name' = { principal_id = 'principal_id' } }, only certain roles are supported"
 }
+
+variable "retention_period" {
+  type        = number
+  default     = 365
+  description = "(Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365"
+}

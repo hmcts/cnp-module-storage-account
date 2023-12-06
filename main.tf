@@ -52,7 +52,7 @@ resource "azurerm_storage_account" "storage_account" {
         days = 7
       }
       delete_retention_policy {
-        days = 365
+        days = var.retention_period
       }
       dynamic "restore_policy" {
         for_each = var.restore_policy_days != null ? [1] : []
