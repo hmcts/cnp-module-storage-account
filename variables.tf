@@ -225,3 +225,9 @@ variable "pim_roles" {
   default     = {}
   description = "{ 'Role name' = { principal_id = 'principal_id' } }, only certain roles are supported"
 }
+
+variable "retention_period" {
+  type = number
+  default = 365
+  description = "Default value for soft delete"
+}
