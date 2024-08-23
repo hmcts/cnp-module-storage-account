@@ -33,6 +33,7 @@ resource "azurerm_storage_account" "storage_account" {
   sftp_enabled                    = var.enable_sftp
   is_hns_enabled                  = var.enable_hns
   nfsv3_enabled                   = var.enable_nfs
+  public_network_access_enabled   = var.public_network_access_enabled
 
   dynamic "immutability_policy" {
     for_each = var.immutable_enabled == true ? [1] : []
