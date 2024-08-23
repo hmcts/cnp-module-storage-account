@@ -12,7 +12,7 @@ Minimal example:
 
 ```terraform
 module "this" {
-  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
   env                      = var.env
   storage_account_name     = var.storage_account_name
   resource_group_name      = var.resource_group_name
@@ -26,7 +26,7 @@ More options:
 
 ```terraform
 module "this" {
-  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
   env                      = var.env
   storage_account_name     = var.storage_account_name
   resource_group_name      = var.resource_group_name
@@ -97,7 +97,7 @@ data "azurerm_subnet" "private_endpoints" {
 }
 
 module "this" {
-  source                        = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  source                        = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
   env                           = var.env
   storage_account_name          = var.storage_account_name
   resource_group_name           = var.resource_group_name
@@ -174,7 +174,7 @@ Ensure:
 
 ```terraform
 module "sftp_storage" {
-  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
   
   ...
   
@@ -207,7 +207,7 @@ data "azuread_group" "sc_group" {
 }
 
 module "this" {
-  source    = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  source    = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
   env       = var.env
   ...
 
