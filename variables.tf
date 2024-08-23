@@ -82,6 +82,12 @@ variable "account_encryption_source" {
   default     = "Microsoft.Storage"
 }
 
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "(Optional) Defaults to null. Setting this to false will block public access to the storage account. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#public_network_access_enabled"
+  default     = null
+}
+
 variable "ip_rules" {
   type        = list(string)
   description = "(Optional) List of public IP addresses which will have access to storage account."

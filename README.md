@@ -49,7 +49,7 @@ module "this" {
 
 ## Important note about network access 
 
-This module will automatically prevent access to Storage Account data plane from public internet.
+This module can automatically prevent access to Storage Account data plane from public internet.
 
 You need to explicitly provide either list of public IP's or Azure subnets ID's to allow access.
 
@@ -97,13 +97,14 @@ data "azurerm_subnet" "private_endpoints" {
 }
 
 module "this" {
-  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
-  env                      = var.env
-  storage_account_name     = var.storage_account_name
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
-  account_kind             = var.account_kind
-  account_replication_type = var.account_replication_type
+  source                        = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  env                           = var.env
+  storage_account_name          = var.storage_account_name
+  resource_group_name           = var.resource_group_name
+  location                      = var.location
+  account_kind                  = var.account_kind
+  account_replication_type      = var.account_replication_type
+  public_network_access_enabled = false
 
   private_endpoint_subnet_id = data.azurerm_subnet.private_endpoints.id
 }
@@ -292,8 +293,10 @@ module "this" {
 | <a name="input_pim_roles"></a> [pim\_roles](#input\_pim\_roles) | { 'Role name' = { principal\_id = 'principal\_id' } }, only certain roles are supported | <pre>map(object({<br>    principal_id = string<br>  }))</pre> | `{}` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | Storage Account Managment Policy | <pre>list(object({<br>    name = string<br>    filters = object({<br>      prefix_match = list(string)<br>      blob_types   = list(string)<br>    })<br>    actions = object({<br>      version_delete_after_days_since_creation = number<br>    })<br>  }))</pre> | `[]` | no |
 | <a name="input_private_endpoint_subnet_id"></a> [private\_endpoint\_subnet\_id](#input\_private\_endpoint\_subnet\_id) | Subnet ID to attach private endpoint to - overrides the default subnet id | `string` | `""` | no |
+| <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | (Optional) Defaults to null. Setting this to false will block public access to the storage account. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#public_network_access_enabled | `bool` | `null` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | This is the prefix your resource group name will have for your shared infrastructure | `string` | n/a | yes |
 | <a name="input_restore_policy_days"></a> [restore\_policy\_days](#input\_restore\_policy\_days) | n/a | `any` | `null` | no |
+| <a name="input_retention_period"></a> [retention\_period](#input\_retention\_period) | (Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365 | `number` | `365` | no |
 | <a name="input_role_assignments"></a> [role\_assignments](#input\_role\_assignments) | (Optional) List of roles to assign to the provided Managed Identity, scoped to this storage account. | `list(string)` | `[]` | no |
 | <a name="input_sa_subnets"></a> [sa\_subnets](#input\_sa\_subnets) | (Optional) List of subnet ID's which will have access to this storage account. | `list(string)` | `[]` | no |
 | <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | (Required) Specifies the name of the storage account. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group. | `any` | n/a | yes |
