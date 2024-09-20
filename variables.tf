@@ -119,7 +119,7 @@ variable "role_assignments" {
 variable "cross_tenant_replication_enabled" {
   type        = bool
   description = "(Optional) Should cross Tenant replication be enabled"
-  default     = true
+  default     = false
 }
 
 // TAG SPECIFIC VARIABLES
