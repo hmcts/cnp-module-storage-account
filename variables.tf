@@ -116,6 +116,12 @@ variable "role_assignments" {
   default     = []
 }
 
+variable "cross_tenant_replication_enabled" {
+  type        = bool
+  description = "(Optional) Should cross Tenant replication be enabled"
+  default     = true
+}
+
 // TAG SPECIFIC VARIABLES
 variable "common_tags" {
   type = map(string)
