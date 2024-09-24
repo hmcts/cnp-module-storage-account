@@ -82,13 +82,14 @@ resource "azurerm_storage_account" "storage_account" {
     default_action             = var.default_action
 
     dynamic "private_link_access" {
-        for_each = var.private_link_access
+      for_each = var.private_link_access
 
-        content {
-         endpoint_resource_id = private_link_access.value["endpoint_resource_id"]
-         endpoint_tenant_id   = private_link_access.value["endpoint_tenant_id"]
-        }
+      content {
+        endpoint_resource_id = private_link_access.value["endpoint_resource_id"]
+        endpoint_tenant_id   = private_link_access.value["endpoint_tenant_id"]
+      }
 
+    }
   }
 
   tags = var.common_tags
