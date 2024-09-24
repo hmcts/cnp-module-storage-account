@@ -237,3 +237,12 @@ variable "infrastructure_encryption_enabled" {
   default     = false
   description = "(Optional) enable infrastructre encryption, can only be set on storage account creation."
 }
+
+variable "private_link_access" {
+  type = list(object({
+    endpoint_resource_id = string
+    endpoint_tenant_id   = string
+  }))
+  description = "List of private_link_access"
+  default     = []
+}
