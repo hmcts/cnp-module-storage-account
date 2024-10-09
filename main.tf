@@ -34,6 +34,7 @@ resource "azurerm_storage_account" "storage_account" {
   is_hns_enabled                    = var.enable_hns
   nfsv3_enabled                     = var.enable_nfs
   infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
+  cross_tenant_replication_enabled  = var.cross_tenant_replication_enabled
 
   dynamic "immutability_policy" {
     for_each = var.immutable_enabled == true ? [1] : []
