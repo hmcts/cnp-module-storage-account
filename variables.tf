@@ -246,3 +246,10 @@ variable "private_link_access" {
   description = "List of private_link_access"
   default     = []
 }
+
+
+variable "cross_tenant_replication_enabled" {
+  type        = bool
+  default     = true
+  description = "Flag for cross tenant replication, defaults to true"
+}
