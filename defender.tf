@@ -2,7 +2,7 @@ resource "azapi_update_resource" "defender_settings" {
   name      = "current"
   type      = "Microsoft.Security/DefenderForStorageSettings@2022-12-01-preview"
   parent_id = azurerm_storage_account.storage_account.id
-  body = jsonencode({
+  body = {
     properties = {
       isEnabled = var.defender_enabled
       malwareScanning = {
@@ -16,5 +16,5 @@ resource "azapi_update_resource" "defender_settings" {
       }
       overrideSubscriptionLevelSettings = var.defender_override_subscription_level_settings
     }
-  })
+  }
 }
