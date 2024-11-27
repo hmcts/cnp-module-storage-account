@@ -20,21 +20,22 @@ locals {
 }
 
 resource "azurerm_storage_account" "storage_account" {
-  name                             = local.storage_account_name
-  resource_group_name              = var.resource_group_name
-  location                         = var.location
-  account_kind                     = var.account_kind
-  account_tier                     = var.account_tier
-  account_replication_type         = var.account_replication_type
-  access_tier                      = var.access_tier
-  https_traffic_only_enabled       = var.enable_https_traffic_only
-  min_tls_version                  = "TLS1_2"
-  allow_nested_items_to_be_public  = var.allow_nested_items_to_be_public
-  sftp_enabled                     = var.enable_sftp
-  is_hns_enabled                   = var.enable_hns
-  nfsv3_enabled                    = var.enable_nfs
-  public_network_access_enabled    = var.public_network_access_enabled
-  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
+  name                              = local.storage_account_name
+  resource_group_name               = var.resource_group_name
+  location                          = var.location
+  account_kind                      = var.account_kind
+  account_tier                      = var.account_tier
+  account_replication_type          = var.account_replication_type
+  access_tier                       = var.access_tier
+  https_traffic_only_enabled        = var.enable_https_traffic_only
+  min_tls_version                   = "TLS1_2"
+  allow_nested_items_to_be_public   = var.allow_nested_items_to_be_public
+  sftp_enabled                      = var.enable_sftp
+  is_hns_enabled                    = var.enable_hns
+  nfsv3_enabled                     = var.enable_nfs
+  public_network_access_enabled     = var.public_network_access_enabled
+  cross_tenant_replication_enabled  = var.cross_tenant_replication_enabled
+  infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
 
   dynamic "immutability_policy" {
     for_each = var.immutable_enabled == true ? [1] : []

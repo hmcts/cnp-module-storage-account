@@ -243,3 +243,9 @@ variable "retention_period" {
   default     = 365
   description = "(Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365"
 }
+
+variable "infrastructure_encryption_enabled" {
+  type        = bool
+  default     = false
+  description = "(Optional) enable infrastructre encryption, can only be set on storage account creation."
+}
