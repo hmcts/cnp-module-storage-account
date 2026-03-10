@@ -105,6 +105,25 @@ variable "default_action" {
   default     = "Deny"
 }
 
+variable "private_link_access" {
+  description = <<-EOF
+  Map of resource IDs allowed to connect to the storage account.
+  {
+    [private_endpoint_id] = {
+      endpoint_resource_id = [resource_id]
+      endpoint_tenant_id  = (optional) [tenant_id]
+    }
+  }
+EOF
+
+  type = map(object({
+    endpoint_resource_id = string
+    endpoint_tenant_id   = optional(string)
+  }))
+
+  default = {}
+}
+
 variable "managed_identity_object_id" {
   description = "(Optional) Object Id for a Managed Identity to assign roles to, scoped to this storage account."
   default     = ""
