@@ -258,7 +258,7 @@ variable "defender_override_subscription_level_settings" {
 variable "pim_roles" {
   type = map(object({
     principal_id  = string
-    duration_days = optional(string, "P365D")
+    duration_days = optional(number, 365)
   }))
   default = {}
 }
