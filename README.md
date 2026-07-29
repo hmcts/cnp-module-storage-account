@@ -84,7 +84,7 @@ provider "azurerm" {
   alias           = "private_endpoints"
   subscription_id = var.aks_subscription_id
   features {}
-  skip_provider_registration = true
+  resource_provider_registrations = "none"
 }
 
 data "azurerm_subnet" "private_endpoints" {
@@ -97,7 +97,7 @@ data "azurerm_subnet" "private_endpoints" {
 }
 
 module "this" {
-  source                        = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
+  source                        = "git@github.com:hmcts/cnp-module-storage-account?ref=5.x"
   env                           = var.env
   storage_account_name          = var.storage_account_name
   resource_group_name           = var.resource_group_name
