@@ -36,7 +36,7 @@ resource "azurerm_storage_account" "storage_account" {
   nfsv3_enabled                    = var.enable_nfs
   public_network_access_enabled    = var.public_network_access_enabled
   cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
-  shared_access_key_enabled         = var.shared_access_key_enabled
+  shared_access_key_enabled        = var.shared_access_key_enabled
 
   dynamic "immutability_policy" {
     for_each = var.immutable_enabled == true ? [1] : []
