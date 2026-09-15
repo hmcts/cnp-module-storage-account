@@ -141,6 +141,12 @@ variable "cross_tenant_replication_enabled" {
   default     = false
 }
 
+variable "shared_access_key_enabled" {
+  type        = bool
+  description = "Whether Shared Key authorisation is enabled. Disable when all clients use Azure AD/RBAC."
+  default     = true
+}
+
 // TAG SPECIFIC VARIABLES
 variable "common_tags" {
   type = map(string)
