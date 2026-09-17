@@ -31,6 +31,8 @@ module "this" {
   location                   = var.location
   account_kind               = var.account_kind
   private_endpoint_subnet_id = data.azurerm_subnet.private_endpoints.id
+  enable_soft_delete         = var.enable_soft_delete
+  soft_delete_retention_days = var.soft_delete_retention_days
 
   common_tags = module.common_tags.common_tags
 }
