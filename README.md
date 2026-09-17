@@ -47,6 +47,10 @@ module "this" {
 }
 ```
 
+Soft delete is enabled automatically for `prod` and `production` environments with a 14-day retention period. For non-production environments, enable it explicitly:
+
+Set `enable_soft_delete = false` to override the production default where an exception is approved.
+
 ## Important note about network access 
 
 This module can automatically prevent access to Storage Account data plane from public internet.
