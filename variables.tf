@@ -56,6 +56,7 @@ variable "enable_soft_delete" {
 variable "soft_delete_retention_days" {
   type        = number
   default     = 14
+  nullable    = false
   description = "Retention period for blob, container, and file share soft delete. Defaults to 14 days and must be between 14 and 365 days."
 
   validation {

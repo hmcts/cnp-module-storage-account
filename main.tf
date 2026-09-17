@@ -57,7 +57,9 @@ resource "azurerm_storage_account" "storage_account" {
         days = local.soft_delete_enabled ? local.soft_delete_retention_days : 7
       }
       delete_retention_policy {
-        days = local.soft_delete_enabled ? max(local.soft_delete_retention_days, var.retention_period) : var.retention_period
+        days = local.soft_delete_enabled ? (
+          var.enable_data_protection == true ? max(local.soft_delete_retention_days, var.retention_period) : local.soft_delete_retention_days
+        ) : var.retention_period
       }
       dynamic "restore_policy" {
         for_each = var.enable_data_protection == true && var.restore_policy_days != null ? [1] : []
