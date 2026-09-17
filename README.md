@@ -49,15 +49,6 @@ module "this" {
 
 Soft delete is enabled automatically for `prod` and `production` environments with a 14-day retention period. For non-production environments, enable it explicitly:
 
-```terraform
-module "this" {
-  # ...
-  env                        = var.env
-  enable_soft_delete        = true
-  soft_delete_retention_days = 14
-}
-```
-
 Set `enable_soft_delete = false` to override the production default where an exception is approved.
 
 ## Important note about network access 
