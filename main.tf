@@ -8,7 +8,7 @@ locals {
   default_storage_account_name = random_string.storage_account_random_string.result
   storage_account_name         = var.storage_account_name != "" ? var.storage_account_name : local.default_storage_account_name
   soft_delete_enabled          = var.enable_soft_delete != null ? var.enable_soft_delete : contains(["prod", "production"], lower(var.env))
-  soft_delete_retention_days   = var.soft_delete_retention_days != null ? var.soft_delete_retention_days : 14
+  soft_delete_retention_days   = var.soft_delete_retention_days
 
   allowed_roles = [
     "Storage Blob Delegator",

@@ -9,7 +9,7 @@ variable "enable_soft_delete" {
 
 variable "soft_delete_retention_days" {
   type    = number
-  default = null
+  default = 14
 }
 
 variable "location" {
