@@ -7,6 +7,8 @@ resource "random_string" "storage_account_random_string" {
 locals {
   default_storage_account_name = random_string.storage_account_random_string.result
   storage_account_name         = var.storage_account_name != "" ? var.storage_account_name : local.default_storage_account_name
+  soft_delete_enabled          = var.enable_soft_delete != null ? var.enable_soft_delete : contains(["prod", "production"], lower(var.env))
+  soft_delete_retention_days   = var.soft_delete_retention_days
 
   allowed_roles = [
     "Storage Blob Delegator",
@@ -46,19 +48,19 @@ resource "azurerm_storage_account" "storage_account" {
     }
   }
   dynamic "blob_properties" {
-    for_each = var.enable_data_protection == true ? [1] : []
+    for_each = local.soft_delete_enabled || var.enable_data_protection == true ? [1] : []
     content {
-      versioning_enabled  = var.enable_versioning
-      change_feed_enabled = var.enable_change_feed
+      versioning_enabled  = var.enable_data_protection == true ? var.enable_versioning : false
+      change_feed_enabled = var.enable_data_protection == true ? var.enable_change_feed : false
 
       container_delete_retention_policy {
-        days = 7
+        days = local.soft_delete_retention_days
       }
       delete_retention_policy {
-        days = var.retention_period
+        days = local.soft_delete_retention_days
       }
       dynamic "restore_policy" {
-        for_each = var.restore_policy_days != null ? [1] : []
+        for_each = var.enable_data_protection == true && var.restore_policy_days != null ? [1] : []
         content {
           days = var.restore_policy_days
         }
@@ -73,6 +75,15 @@ resource "azurerm_storage_account" "storage_account" {
           exposed_headers    = cors_rule.value["exposed_headers"]
           max_age_in_seconds = cors_rule.value["max_age_in_seconds"]
         }
+      }
+    }
+  }
+
+  dynamic "share_properties" {
+    for_each = local.soft_delete_enabled ? [1] : []
+    content {
+      retention_policy {
+        days = local.soft_delete_retention_days
       }
     }
   }
