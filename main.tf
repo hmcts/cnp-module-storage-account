@@ -8,6 +8,7 @@ locals {
   default_storage_account_name = random_string.storage_account_random_string.result
   storage_account_name         = var.storage_account_name != "" ? var.storage_account_name : local.default_storage_account_name
   soft_delete_enabled          = var.enable_soft_delete != null ? var.enable_soft_delete : contains(["prod", "production"], lower(var.env))
+  effective_retention_days     = var.enable_data_protection == true ? max(var.soft_delete_retention_days, var.retention_period) : var.soft_delete_retention_days
 
   allowed_roles = [
     "Storage Blob Delegator",
@@ -55,13 +56,13 @@ resource "azurerm_storage_account" "storage_account" {
       dynamic "container_delete_retention_policy" {
         for_each = local.soft_delete_enabled ? [1] : []
         content {
-          days = var.soft_delete_retention_days
+          days = local.effective_retention_days
         }
       }
       dynamic "delete_retention_policy" {
         for_each = local.soft_delete_enabled ? [1] : []
         content {
-          days = var.soft_delete_retention_days
+          days = local.effective_retention_days
         }
       }
       dynamic "restore_policy" {
@@ -88,7 +89,7 @@ resource "azurerm_storage_account" "storage_account" {
     for_each = local.soft_delete_enabled ? [1] : []
     content {
       retention_policy {
-        days = var.soft_delete_retention_days
+        days = local.effective_retention_days
       }
     }
   }
