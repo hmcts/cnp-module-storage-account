@@ -47,6 +47,23 @@ variable "enable_data_protection" {
   default     = "false"
 }
 
+variable "enable_soft_delete" {
+  type        = bool
+  default     = null
+  description = "Enables blob, container, and file share soft delete. When omitted, soft delete is enabled for prod environments only."
+}
+
+variable "soft_delete_retention_days" {
+  type        = number
+  default     = 14
+  description = "Retention period for blob, container, and file share soft delete. Defaults to 14 days and must be between 14 and 365 days."
+
+  validation {
+    condition     = var.soft_delete_retention_days >= 14 && var.soft_delete_retention_days <= 365
+    error_message = "soft_delete_retention_days must be between 14 and 365 days."
+  }
+}
+
 variable "enable_file_encryption" {
   description = "(Optional) Boolean flag which controls if Encryption Services are enabled for File storage, see https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/ for more information."
   default     = "true"
