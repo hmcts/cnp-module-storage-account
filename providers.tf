@@ -4,9 +4,5 @@ terraform {
       source  = "Azure/azapi"
       version = "< 2.6.0"
     }
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 4.0"
-    }
   }
 }
