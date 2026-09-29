@@ -2,16 +2,6 @@ variable "env" {
   default = "sbox"
 }
 
-variable "enable_soft_delete" {
-  type    = bool
-  default = null
-}
-
-variable "soft_delete_retention_days" {
-  type    = number
-  default = 14
-}
-
 variable "location" {
   default = "UK South"
 }
