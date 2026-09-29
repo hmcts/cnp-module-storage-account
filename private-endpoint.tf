@@ -1,10 +1,3 @@
-provider "azurerm" {
-  alias           = "private_endpoints"
-  subscription_id = var.private_endpoint_subscription_id
-  features {}
-  resource_provider_registrations = "none"
-}
-
 # TODO make a breaking change at some point to automatically default a subnet id like in:
 # https://github.com/hmcts/terraform-module-servicebus-namespace/blob/1b9bd99b936710ab63aeb89c167266f2ad0b09ba/private-endpoint.tf#L1-L15
 resource "azurerm_private_endpoint" "this" {
