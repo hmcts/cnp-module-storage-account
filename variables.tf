@@ -4,6 +4,23 @@ variable "env" {
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
+variable "enable_soft_delete" {
+  type        = bool
+  default     = null
+  description = "Enables blob, container, and file share soft delete. Defaults to enabled when env is prod (except NFS and Premium StorageV2 accounts) and disabled otherwise. When enabled, retention is never less than soft_delete_retention_days."
+}
+
+variable "soft_delete_retention_days" {
+  type        = number
+  default     = 14
+  description = "Retention period for blob, container, and file share soft delete. Defaults to 14 days and must be between 14 and 365 days."
+
+  validation {
+    condition     = var.soft_delete_retention_days >= 14 && var.soft_delete_retention_days <= 365
+    error_message = "soft_delete_retention_days must be between 14 and 365 days."
+  }
+}
+
 variable "storage_account_name" {
   description = "(Required) Specifies the name of the storage account. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group."
 }
