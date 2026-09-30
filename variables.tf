@@ -7,7 +7,7 @@ variable "env" {
 variable "enable_soft_delete" {
   type        = bool
   default     = null
-  description = "Enables blob, container, and file share soft delete. Defaults to enabled when env is prod (except NFS and Premium StorageV2 accounts) and disabled otherwise. When enabled, retention is never less than soft_delete_retention_days."
+  description = "Enables blob, container, and file share soft delete. Defaults to enabled when env is prod and disabled otherwise. When enabled, retention is never less than soft_delete_retention_days."
 }
 
 variable "soft_delete_retention_days" {

@@ -19,7 +19,7 @@ locals {
     for role in var.role_assignments : role if contains(local.allowed_roles, role)
   ]
 
-  enable_soft_delete  = var.enable_soft_delete != null ? var.enable_soft_delete : var.env == "prod" && !var.enable_nfs && !(var.account_tier == "Premium" && var.account_kind == "StorageV2")
+  enable_soft_delete  = var.enable_soft_delete != null ? var.enable_soft_delete : var.env == "prod"
   blob_retention_days = var.enable_data_protection == true ? var.retention_period : var.soft_delete_retention_days
   soft_delete_days    = var.enable_data_protection == true ? max(var.retention_period, var.soft_delete_retention_days) : var.soft_delete_retention_days
 }
