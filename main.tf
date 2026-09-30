@@ -21,6 +21,7 @@ locals {
 
   enable_soft_delete  = var.enable_soft_delete != null ? var.enable_soft_delete : var.env == "prod" && !var.enable_nfs && !(var.account_tier == "Premium" && var.account_kind == "StorageV2")
   blob_retention_days = var.enable_data_protection == true ? var.retention_period : var.soft_delete_retention_days
+  soft_delete_days    = var.enable_data_protection == true ? max(var.retention_period, var.soft_delete_retention_days) : var.soft_delete_retention_days
 }
 
 resource "azurerm_storage_account" "storage_account" {
@@ -55,7 +56,7 @@ resource "azurerm_storage_account" "storage_account" {
       change_feed_enabled = var.enable_data_protection == true ? var.enable_change_feed : false
 
       container_delete_retention_policy {
-        days = local.enable_soft_delete ? var.soft_delete_retention_days : 7
+        days = local.enable_soft_delete ? local.soft_delete_days : 7
       }
       delete_retention_policy {
         days = local.blob_retention_days
@@ -84,7 +85,7 @@ resource "azurerm_storage_account" "storage_account" {
     for_each = local.enable_soft_delete && (var.account_kind == "FileStorage" || (var.account_tier == "Standard" && contains(["Storage", "StorageV2"], var.account_kind))) ? [1] : []
     content {
       retention_policy {
-        days = var.soft_delete_retention_days
+        days = local.soft_delete_days
       }
     }
   }
@@ -105,13 +106,6 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   tags = var.common_tags
-
-  lifecycle {
-    ignore_changes = [
-      blob_properties[0].container_delete_retention_policy,
-      share_properties[0].retention_policy,
-    ]
-  }
 }
 
 resource "azurerm_storage_management_policy" "storage-account-policy" {
