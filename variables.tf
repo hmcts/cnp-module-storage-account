@@ -11,36 +11,21 @@ variable "enable_soft_delete" {
 }
 
 variable "blob_soft_delete_retention_days" {
-  type        = number
+  description = "Specifies the number of days that the blob should be retained, between `1` and `365` days. Defaults to `retention_period` when `enable_data_protection` is true, otherwise `7`. Minimum `14` when soft delete is enabled."
   default     = null
-  description = "Number of days deleted blobs are retained, between 1 and 365. Defaults to retention_period when enable_data_protection is true, otherwise 7. Minimum 14 when soft delete is enabled."
-
-  validation {
-    condition     = var.blob_soft_delete_retention_days == null ? true : var.blob_soft_delete_retention_days >= 1 && var.blob_soft_delete_retention_days <= 365
-    error_message = "blob_soft_delete_retention_days must be between 1 and 365 days."
-  }
+  type        = number
 }
 
 variable "container_soft_delete_retention_days" {
-  type        = number
+  description = "Specifies the number of days that deleted containers are retained, between `1` and `365` days. Defaults to `retention_period` when soft delete and `enable_data_protection` are enabled, otherwise `7`. Minimum `14` when soft delete is enabled."
   default     = null
-  description = "Number of days deleted containers are retained, between 1 and 365. Defaults to retention_period when soft delete and enable_data_protection are enabled, otherwise 7. Minimum 14 when soft delete is enabled."
-
-  validation {
-    condition     = var.container_soft_delete_retention_days == null ? true : var.container_soft_delete_retention_days >= 1 && var.container_soft_delete_retention_days <= 365
-    error_message = "container_soft_delete_retention_days must be between 1 and 365 days."
-  }
+  type        = number
 }
 
 variable "file_share_soft_delete_retention_days" {
-  type        = number
+  description = "Specifies the number of days that deleted file shares are retained, between `1` and `365` days. Defaults to `retention_period` when `enable_data_protection` is true, otherwise `7`. Minimum `14`. Only applied when soft delete is enabled."
   default     = null
-  description = "Number of days deleted file shares are retained, between 1 and 365. Defaults to retention_period when enable_data_protection is true, otherwise 7. Minimum 14. Only applied when soft delete is enabled."
-
-  validation {
-    condition     = var.file_share_soft_delete_retention_days == null ? true : var.file_share_soft_delete_retention_days >= 1 && var.file_share_soft_delete_retention_days <= 365
-    error_message = "file_share_soft_delete_retention_days must be between 1 and 365 days."
-  }
+  type        = number
 }
 
 variable "storage_account_name" {
