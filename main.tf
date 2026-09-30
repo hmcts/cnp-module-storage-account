@@ -19,7 +19,6 @@ locals {
     for role in var.role_assignments : role if contains(local.allowed_roles, role)
   ]
 
-  # Prod defaults on, except NFS and Premium StorageV2 (page blob) accounts which may not support blob soft delete
   enable_soft_delete  = var.enable_soft_delete != null ? var.enable_soft_delete : var.env == "prod" && !var.enable_nfs && !(var.account_tier == "Premium" && var.account_kind == "StorageV2")
   blob_retention_days = var.enable_data_protection == true ? var.retention_period : var.soft_delete_retention_days
 }
@@ -59,7 +58,7 @@ resource "azurerm_storage_account" "storage_account" {
         days = local.enable_soft_delete ? var.soft_delete_retention_days : 7
       }
       delete_retention_policy {
-        days = local.enable_soft_delete ? max(local.blob_retention_days, var.soft_delete_retention_days) : local.blob_retention_days
+        days = local.blob_retention_days
       }
       dynamic "restore_policy" {
         for_each = var.enable_data_protection == true && var.restore_policy_days != null ? [1] : []
@@ -106,6 +105,13 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   tags = var.common_tags
+
+  lifecycle {
+    ignore_changes = [
+      blob_properties[0].container_delete_retention_policy,
+      share_properties[0].retention_policy,
+    ]
+  }
 }
 
 resource "azurerm_storage_management_policy" "storage-account-policy" {
