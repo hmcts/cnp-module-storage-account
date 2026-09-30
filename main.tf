@@ -26,6 +26,7 @@ locals {
   blob_soft_delete_retention_days       = local.enforce_soft_delete ? max(coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days), 14) : coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days)
   container_soft_delete_retention_days  = local.enforce_soft_delete ? max(coalesce(var.container_soft_delete_retention_days, 7), 14) : coalesce(var.container_soft_delete_retention_days, 7)
   file_share_soft_delete_retention_days = local.enforce_soft_delete ? max(coalesce(var.file_share_soft_delete_retention_days, 7), 14) : coalesce(var.file_share_soft_delete_retention_days, 7)
+  private_endpoint_dns_subscription     = var.env == "sbox" || var.env == "sandbox" ? "1497c3d7-ab6d-4bb7-8a10-b51d03189ee3" : "1baf5470-1c3e-40d3-a6f7-74bfbce4b348"
 }
 
 resource "azurerm_storage_account" "storage_account" {
