@@ -17,7 +17,7 @@ resource "azurerm_private_endpoint" "this" {
 
   private_dns_zone_group {
     name                 = "endpoint-dnszonegroup"
-    private_dns_zone_ids = ["/subscriptions/1baf5470-1c3e-40d3-a6f7-74bfbce4b348/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"]
+    private_dns_zone_ids = ["/subscriptions/${local.private_endpoint_dns_subscription}/resourceGroups/core-infra-intsvc-rg/providers/Microsoft.Network/privateDnsZones/privatelink.blob.core.windows.net"]
   }
 
   tags = var.common_tags
