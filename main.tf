@@ -19,9 +19,12 @@ locals {
     for role in var.role_assignments : role if contains(local.allowed_roles, role)
   ]
 
-  enable_soft_delete  = var.enable_soft_delete != null ? var.enable_soft_delete : var.env == "prod"
-  blob_retention_days = var.enable_data_protection == true ? var.retention_period : var.soft_delete_retention_days
-  soft_delete_days    = var.enable_data_protection == true ? max(var.retention_period, var.soft_delete_retention_days) : var.soft_delete_retention_days
+  enable_soft_delete       = var.enable_soft_delete != null ? var.enable_soft_delete : var.env == "prod"
+  soft_delete_default_days = var.enable_data_protection == true ? var.retention_period : 7
+
+  blob_soft_delete_retention_days       = local.enable_soft_delete ? max(coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days), 14) : coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days)
+  container_soft_delete_retention_days  = local.enable_soft_delete ? max(coalesce(var.container_soft_delete_retention_days, local.soft_delete_default_days), 14) : coalesce(var.container_soft_delete_retention_days, 7)
+  file_share_soft_delete_retention_days = max(coalesce(var.file_share_soft_delete_retention_days, local.soft_delete_default_days), 14)
 }
 
 resource "azurerm_storage_account" "storage_account" {
@@ -56,10 +59,10 @@ resource "azurerm_storage_account" "storage_account" {
       change_feed_enabled = var.enable_data_protection == true ? var.enable_change_feed : false
 
       container_delete_retention_policy {
-        days = local.enable_soft_delete ? local.soft_delete_days : 7
+        days = local.container_soft_delete_retention_days
       }
       delete_retention_policy {
-        days = local.blob_retention_days
+        days = local.blob_soft_delete_retention_days
       }
       dynamic "restore_policy" {
         for_each = var.enable_data_protection == true && var.restore_policy_days != null ? [1] : []
@@ -85,7 +88,7 @@ resource "azurerm_storage_account" "storage_account" {
     for_each = local.enable_soft_delete && (var.account_kind == "FileStorage" || (var.account_tier == "Standard" && contains(["Storage", "StorageV2"], var.account_kind))) ? [1] : []
     content {
       retention_policy {
-        days = local.soft_delete_days
+        days = local.file_share_soft_delete_retention_days
       }
     }
   }
