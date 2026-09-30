@@ -20,11 +20,12 @@ locals {
   ]
 
   is_prod_environment      = var.env == "prod"
+  enforce_soft_delete      = var.enable_soft_delete && local.is_prod_environment
   soft_delete_default_days = var.enable_data_protection == true ? var.retention_period : 7
 
-  blob_soft_delete_retention_days       = local.is_prod_environment ? max(coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days), 14) : coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days)
-  container_soft_delete_retention_days  = local.is_prod_environment ? max(coalesce(var.container_soft_delete_retention_days, 7), 14) : coalesce(var.container_soft_delete_retention_days, 7)
-  file_share_soft_delete_retention_days = local.is_prod_environment ? max(coalesce(var.file_share_soft_delete_retention_days, 7), 14) : coalesce(var.file_share_soft_delete_retention_days, 7)
+  blob_soft_delete_retention_days       = local.enforce_soft_delete ? max(coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days), 14) : coalesce(var.blob_soft_delete_retention_days, local.soft_delete_default_days)
+  container_soft_delete_retention_days  = local.enforce_soft_delete ? max(coalesce(var.container_soft_delete_retention_days, 7), 14) : coalesce(var.container_soft_delete_retention_days, 7)
+  file_share_soft_delete_retention_days = local.enforce_soft_delete ? max(coalesce(var.file_share_soft_delete_retention_days, 7), 14) : coalesce(var.file_share_soft_delete_retention_days, 7)
 }
 
 resource "azurerm_storage_account" "storage_account" {
@@ -53,7 +54,7 @@ resource "azurerm_storage_account" "storage_account" {
     }
   }
   dynamic "blob_properties" {
-    for_each = local.is_prod_environment || var.enable_data_protection == true ? [1] : []
+    for_each = local.enforce_soft_delete || var.enable_data_protection == true ? [1] : []
     content {
       versioning_enabled  = var.enable_data_protection == true ? var.enable_versioning : false
       change_feed_enabled = var.enable_data_protection == true ? var.enable_change_feed : false
@@ -85,7 +86,7 @@ resource "azurerm_storage_account" "storage_account" {
   }
 
   dynamic "share_properties" {
-    for_each = local.is_prod_environment && (var.account_kind == "FileStorage" || (var.account_tier == "Standard" && contains(["Storage", "StorageV2"], var.account_kind))) ? [1] : []
+    for_each = local.enforce_soft_delete && (var.account_kind == "FileStorage" || (var.account_tier == "Standard" && contains(["Storage", "StorageV2"], var.account_kind))) ? [1] : []
     content {
       retention_policy {
         days = local.file_share_soft_delete_retention_days

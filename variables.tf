@@ -4,20 +4,26 @@ variable "env" {
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
+variable "enable_soft_delete" {
+  type        = bool
+  default     = false
+  description = "Enforces blob, container, and file share soft delete in prod, with each retention period at least 14 days. When false, soft delete settings are unchanged from previous versions of this module."
+}
+
 variable "blob_soft_delete_retention_days" {
-  description = "Specifies the number of days that the blob should be retained, between `1` and `365` days. Defaults to `retention_period` when `enable_data_protection` is true, otherwise `7`. Minimum `14` in prod."
+  description = "Specifies the number of days that the blob should be retained, between `1` and `365` days. Defaults to `retention_period` when `enable_data_protection` is true, otherwise `7`. Minimum `14` in prod when `enable_soft_delete` is true."
   default     = null
   type        = number
 }
 
 variable "container_soft_delete_retention_days" {
-  description = "Specifies the number of days that deleted containers are retained, between `1` and `365` days. Defaults to `7`. Minimum `14` in prod."
+  description = "Specifies the number of days that deleted containers are retained, between `1` and `365` days. Defaults to `7`. Minimum `14` in prod when `enable_soft_delete` is true."
   default     = null
   type        = number
 }
 
 variable "file_share_soft_delete_retention_days" {
-  description = "Specifies the number of days that deleted file shares are retained, between `1` and `365` days. Defaults to `7`. Minimum `14` in prod. Only applied in prod."
+  description = "Specifies the number of days that deleted file shares are retained, between `1` and `365` days. Defaults to `7`. Minimum `14`. Only applied in prod when `enable_soft_delete` is true."
   default     = null
   type        = number
 }
