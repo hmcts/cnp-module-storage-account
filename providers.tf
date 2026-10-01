@@ -5,8 +5,8 @@ terraform {
       version = "< 2.6.0"
     }
     azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 4.0"
+      source                = "hashicorp/azurerm"
+      configuration_aliases = [azurerm.private_endpoints]
     }
   }
 }

@@ -3,8 +3,10 @@
 resource "azurerm_private_endpoint" "this" {
   count = var.private_endpoint_subnet_id != "" ? 1 : 0
 
+  provider = azurerm.private_endpoints
+
   name                = local.storage_account_name
-  resource_group_name = var.resource_group_name
+  resource_group_name = var.private_endpoint_rg_name != "" ? var.private_endpoint_rg_name : var.resource_group_name
   location            = var.location
   subnet_id           = var.private_endpoint_subnet_id
 
