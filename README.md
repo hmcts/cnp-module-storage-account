@@ -302,6 +302,7 @@ module "this" {
 | <a name="input_retention_period"></a> [retention\_period](#input\_retention\_period) | (Optional) Specifies the number of days that the blob should be retained, between 1 and 365 days. Defaults to 365 | `number` | `365` | no |
 | <a name="input_role_assignments"></a> [role\_assignments](#input\_role\_assignments) | (Optional) List of roles to assign to the provided Managed Identity, scoped to this storage account. | `list(string)` | `[]` | no |
 | <a name="input_sa_subnets"></a> [sa\_subnets](#input\_sa\_subnets) | (Optional) List of subnet ID's which will have access to this storage account. | `list(string)` | `[]` | no |
+| <a name="input_shared_access_key_enabled"></a> [shared\_access\_key\_enabled](#input\_shared\_access\_key\_enabled) | Whether Shared Key authorisation is enabled. Disable when all clients use Azure AD/RBAC. | `bool` | `true` | no |
 | <a name="input_storage_account_name"></a> [storage\_account\_name](#input\_storage\_account\_name) | (Required) Specifies the name of the storage account. Changing this forces a new resource to be created. This must be unique across the entire Azure service, not just within the resource group. | `any` | n/a | yes |
 | <a name="input_tables"></a> [tables](#input\_tables) | List of Storage Tables | `list(string)` | `[]` | no |
 | <a name="input_team_contact"></a> [team\_contact](#input\_team\_contact) | Unused, do not add to your configuration | `any` | `null` | no |
