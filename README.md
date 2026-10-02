@@ -269,7 +269,10 @@ module "this" {
 | <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | TAG SPECIFIC VARIABLES | `map(string)` | n/a | yes |
 | <a name="input_containers"></a> [containers](#input\_containers) | List of Storage Containers | <pre>list(object({<br/>    name        = string<br/>    access_type = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | (Optional) A list of Cors Rule blocks. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule | <pre>list(object({<br/>    allowed_headers    = list(string)<br/>    allowed_methods    = list(string)<br/>    allowed_origins    = list(string)<br/>    exposed_headers    = list(string)<br/>    max_age_in_seconds = number<br/>  }))</pre> | `[]` | no |
+<<<<<<< HEAD
+=======
 | <a name="input_create_dfs_private_endpoint"></a> [create\_dfs\_private\_endpoint](#input\_create\_dfs\_private\_endpoint) | Boolean flag to enable or disable DFS private endpoint | `bool` | `false` | no |
+>>>>>>> 4.x
 | <a name="input_cross_tenant_replication_enabled"></a> [cross\_tenant\_replication\_enabled](#input\_cross\_tenant\_replication\_enabled) | (Optional) Should cross Tenant replication be enabled | `bool` | `false` | no |
 | <a name="input_default_action"></a> [default\_action](#input\_default\_action) | (Optional) Network rules default action | `string` | `"Deny"` | no |
 | <a name="input_defender_enabled"></a> [defender\_enabled](#input\_defender\_enabled) | Enable Defender for Cloud, it costs $10per month / storage account and $0.15/GB scanned for On-Upload Malware Scanning, enable with caution | `bool` | `false` | no |
@@ -290,6 +293,7 @@ module "this" {
 | <a name="input_env"></a> [env](#input\_env) | The deployment environment (sandbox, aat, prod etc..) | `string` | n/a | yes |
 | <a name="input_immutability_period"></a> [immutability\_period](#input\_immutability\_period) | n/a | `string` | `"1"` | no |
 | <a name="input_immutable_enabled"></a> [immutable\_enabled](#input\_immutable\_enabled) | n/a | `string` | `"false"` | no |
+| <a name="input_infrastructure_encryption_enabled"></a> [infrastructure\_encryption\_enabled](#input\_infrastructure\_encryption\_enabled) | (Optional) enable infrastructre encryption, can only be set on storage account creation. | `bool` | `false` | no |
 | <a name="input_ip_rules"></a> [ip\_rules](#input\_ip\_rules) | (Optional) List of public IP addresses which will have access to storage account. | `list(string)` | `[]` | no |
 | <a name="input_location"></a> [location](#input\_location) | (Required) Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created. | `string` | `"uksouth"` | no |
 | <a name="input_managed_identity_object_id"></a> [managed\_identity\_object\_id](#input\_managed\_identity\_object\_id) | (Optional) Object Id for a Managed Identity to assign roles to, scoped to this storage account. | `string` | `""` | no |
