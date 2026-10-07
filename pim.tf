@@ -1,4 +1,6 @@
-resource "time_static" "pim_start" {}
+resource "time_static" "pim_start" {
+  for_each = local.pim_roles
+}
 
 data "azurerm_subscription" "primary" {
 }
