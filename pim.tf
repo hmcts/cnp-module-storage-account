@@ -21,7 +21,7 @@ resource "azurerm_pim_eligible_role_assignment" "this" {
   principal_id       = each.value.principal_id
 
   schedule {
-    start_date_time = time_static.pim_start.rfc3339
+    start_date_time = time_static.pim_start[each.key].rfc3339
     expiration {
       duration_days = each.value.duration_days
     }
