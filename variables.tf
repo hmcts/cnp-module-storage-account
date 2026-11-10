@@ -165,6 +165,12 @@ variable "cross_tenant_replication_enabled" {
   default     = false
 }
 
+variable "shared_access_key_enabled" {
+  type        = bool
+  description = "(Optional) Whether the storage account permits requests to be authorized with the account access key via Shared Key. When false, only Azure AD authorization is accepted (this also disables SAS tokens signed with the account key). Defaults to true. Note that the module's container and table resources use shared key authorization, so set this to false only when they are not used."
+  default     = true
+}
+
 // TAG SPECIFIC VARIABLES
 variable "common_tags" {
   type = map(string)
