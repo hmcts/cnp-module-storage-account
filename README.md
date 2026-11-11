@@ -174,7 +174,7 @@ Ensure:
 
 ```terraform
 module "sftp_storage" {
-  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=5.x"
   
   ...
   
@@ -207,7 +207,7 @@ data "azuread_group" "sc_group" {
 }
 
 module "this" {
-  source    = "git@github.com:hmcts/cnp-module-storage-account?ref=4.x"
+  source    = "git@github.com:hmcts/cnp-module-storage-account?ref=5.x"
   env       = var.env
   ...
 
